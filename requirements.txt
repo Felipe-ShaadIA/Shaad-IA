@@ -3,3 +3,4 @@ python-dotenv
 pillow
 python-docx
 streamlit
+anthropic
