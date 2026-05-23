@@ -1,0 +1,37 @@
+[20/05/2026 20:49:53] [INFO] Shaad IA iniciada
+[20/05/2026 20:50:26] [INFO] Iniciando procesamiento de 1 fotos
+[20/05/2026 20:50:29] [INFO] Foto transcrita: 3E8E9157-6C78-464A-A5CA-6EEC13E21D7D.jpeg
+[20/05/2026 20:50:29] [INFO] Iniciando generación de resumen
+[20/05/2026 20:50:32] [INFO] Resumen guardado: 1. El método hipotético-deductivo.docx
+[20/05/2026 20:51:47] [INFO] Shaad IA iniciada
+[20/05/2026 21:02:45] [INFO] Shaad IA iniciada
+[20/05/2026 21:03:19] [INFO] Iniciando procesamiento de 1 fotos
+[20/05/2026 21:03:22] [INFO] Foto transcrita: 3E8E9157-6C78-464A-A5CA-6EEC13E21D7D.jpeg
+[20/05/2026 21:03:25] [INFO] Resumen guardado: 1. El método hipotético-deductivo.docx
+[20/05/2026 21:14:30] [INFO] Shaad IA iniciada
+[20/05/2026 21:15:14] [INFO] Iniciando procesamiento de 1 fotos
+[20/05/2026 21:15:16] [INFO] Foto transcrita: 3E8E9157-6C78-464A-A5CA-6EEC13E21D7D.jpeg
+[20/05/2026 21:15:19] [INFO] Resumen guardado: 1. El método hipotético-deductivo.docx
+[21/05/2026 21:33:48] [INFO] Shaad IA iniciada
+[21/05/2026 21:36:28] [INFO] Shaad IA iniciada
+[21/05/2026 21:42:20] [INFO] Shaad IA iniciada
+[21/05/2026 21:44:11] [INFO] Shaad IA iniciada
+[21/05/2026 21:47:21] [INFO] Shaad IA iniciada
+[21/05/2026 21:51:05] [INFO] Shaad IA iniciada
+[21/05/2026 22:47:42] [INFO] Shaad IA iniciada
+[21/05/2026 22:48:04] [INFO] Iniciando procesamiento de 7 fotos
+[21/05/2026 22:48:06] [INFO] Foto transcrita: IMG_4378.jpeg
+[21/05/2026 22:48:08] [INFO] Foto transcrita: IMG_4379.jpeg
+[21/05/2026 22:48:09] [INFO] Foto transcrita: IMG_4380.jpeg
+[21/05/2026 22:48:13] [INFO] Foto transcrita: IMG_4381.jpeg
+[21/05/2026 22:48:18] [INFO] Foto transcrita: IMG_4383.jpeg
+[21/05/2026 22:48:27] [INFO] Foto transcrita: IMG_4384.jpeg
+[21/05/2026 22:48:35] [INFO] Foto transcrita: IMG_4385.jpeg
+[21/05/2026 22:49:17] [INFO] Resumen guardado: 1. Introducción a la Conferencia de Bandung.docx
+[21/05/2026 22:50:03] [INFO] Iniciando procesamiento de 1 fotos
+[21/05/2026 22:50:05] [INFO] Foto transcrita: IMG_4404.jpeg
+[21/05/2026 22:50:07] [INFO] Resumen guardado: 1. Neo-colonialismo.docx
+[23/05/2026 00:37:14] [INFO] Shaad IA iniciada
+[23/05/2026 00:37:32] [INFO] Iniciando procesamiento de 1 fotos
+[23/05/2026 00:37:34] [INFO] Foto transcrita: IMG_4380.jpeg
+[23/05/2026 00:37:36] [INFO] Resumen guardado: 1. El Conflicto de Ucrania.docx
