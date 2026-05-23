@@ -3,14 +3,17 @@ import anthropic
 import base64
 import os
 import io
-import json
 import datetime
 import requests
 import tempfile
 from PIL import Image
+from docx import Document
+from docx.shared import Pt, RGBColor
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+import re
 
 try:
-    import fitz  # PyMuPDF
+    import fitz
     PDF_DISPONIBLE = True
 except ImportError:
     PDF_DISPONIBLE = False
@@ -82,7 +85,6 @@ html, body, [data-testid="stAppViewContainer"] {
     font-family: var(--font-display); font-size: 0.78rem;
     letter-spacing: 0.20em; text-transform: uppercase; color: var(--text-muted);
 }
-
 .card {
     background: var(--bg-card); border: 1px solid var(--border);
     border-radius: var(--radius-card); padding: 1.4rem 1.6rem;
@@ -100,7 +102,6 @@ html, body, [data-testid="stAppViewContainer"] {
     width: 6px; height: 6px; border-radius: 50%;
     background: var(--purple-bright); box-shadow: 0 0 8px var(--purple-bright);
 }
-.card-label .dot-green { background: var(--green-bright); box-shadow: 0 0 8px var(--green-bright); }
 
 [data-testid="stTextInput"] input {
     background: var(--bg-surface) !important; border: 1px solid var(--border) !important;
@@ -119,14 +120,21 @@ html, body, [data-testid="stAppViewContainer"] {
     font-family: var(--font-body) !important;
 }
 
+/* Uploader oscuro */
 [data-testid="stFileUploader"] {
-    border: 2px dashed var(--border) !important;
+    border: 2px dashed rgba(138,92,246,0.4) !important;
     border-radius: var(--radius-card) !important;
-    background: var(--bg-surface) !important; padding: 1rem !important;
+    background: #0f0f1a !important;
+    padding: 1rem !important;
 }
-[data-testid="stFileUploader"]:hover {
-    border-color: var(--purple-bright) !important;
-    background: var(--purple-soft) !important;
+[data-testid="stFileUploader"] * { color: var(--text-secondary) !important; }
+[data-testid="stFileUploader"] svg { fill: var(--purple-bright) !important; }
+[data-testid="stFileUploaderDropzoneInstructions"] {
+    background: transparent !important;
+}
+section[data-testid="stFileUploaderDropzone"] {
+    background: #0f0f1a !important;
+    border: none !important;
 }
 
 [data-testid="stSelectbox"] > div > div {
@@ -141,6 +149,7 @@ html, body, [data-testid="stAppViewContainer"] {
 }
 [role="option"]:hover { background: var(--purple-soft) !important; }
 
+/* Botones principales */
 [data-testid="stButton"] > button {
     background: linear-gradient(135deg, var(--purple-mid), var(--purple-bright)) !important;
     color: #fff !important; border: none !important; border-radius: var(--radius-btn) !important;
@@ -154,6 +163,27 @@ html, body, [data-testid="stAppViewContainer"] {
     box-shadow: 0 8px 28px rgba(124,58,237,0.55) !important;
 }
 
+/* Botones de descarga */
+[data-testid="stDownloadButton"] > button {
+    background: #13131f !important;
+    color: var(--text-primary) !important;
+    border: 1px solid rgba(138,92,246,0.4) !important;
+    border-radius: 10px !important;
+    font-family: var(--font-display) !important;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    padding: 0.6rem 1.2rem !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    transition: all 0.2s !important;
+}
+[data-testid="stDownloadButton"] > button:hover {
+    background: var(--purple-soft) !important;
+    border-color: var(--purple-bright) !important;
+    transform: translateY(-1px) !important;
+    color: var(--text-primary) !important;
+}
+
 [data-testid="stAlert"] {
     background: var(--bg-card) !important; border-radius: 12px !important;
     border: 1px solid var(--border) !important;
@@ -161,6 +191,13 @@ html, body, [data-testid="stAppViewContainer"] {
 [data-testid="stExpander"] {
     background: var(--bg-card) !important; border: 1px solid var(--border) !important;
     border-radius: var(--radius-card) !important;
+}
+[data-testid="stExpander"] > div > div {
+    background: var(--bg-card) !important;
+}
+[data-testid="stExpander"] summary {
+    color: var(--text-secondary) !important;
+    font-family: var(--font-display) !important;
 }
 [data-testid="stMarkdownContainer"] p,
 [data-testid="stMarkdownContainer"] li {
@@ -188,14 +225,9 @@ hr { border-color: var(--border) !important; }
     background: var(--green-soft); border: 1px solid rgba(74,222,128,0.30);
     color: var(--green-bright); border-radius: 999px; padding: 3px 12px;
     font-size: 0.70rem; letter-spacing: 0.10em; text-transform: uppercase;
-    font-family: var(--font-display); font-weight: 600;
+    font-family: var(--font-display); font-weight: 600; margin-bottom: 1rem;
+    display: inline-block;
 }
-.historial-item {
-    background: var(--bg-card); border: 1px solid var(--border);
-    border-radius: 12px; padding: 1rem 1.2rem; margin-bottom: 0.6rem;
-    transition: border-color 0.2s;
-}
-.historial-item:hover { border-color: var(--border-strong); }
 .feedback-item {
     background: var(--bg-surface); border: 1px solid var(--border);
     border-radius: 10px; padding: 0.8rem 1rem; margin-bottom: 0.5rem;
@@ -210,18 +242,28 @@ hr { border-color: var(--border) !important; }
 [data-testid="stTabs"] [data-baseweb="tab-list"] {
     background: var(--bg-surface) !important;
     border-radius: 12px !important; padding: 4px !important;
-    border: 1px solid var(--border) !important;
+    border: 1px solid var(--border) !important; gap: 2px !important;
 }
 [data-testid="stTabs"] [data-baseweb="tab"] {
     background: transparent !important; color: var(--text-muted) !important;
     border-radius: 8px !important; font-family: var(--font-display) !important;
     font-weight: 600 !important; font-size: 0.85rem !important;
+    border: none !important;
 }
 [data-testid="stTabs"] [aria-selected="true"] {
     background: var(--purple-soft) !important;
     color: var(--purple-bright) !important;
     border: 1px solid var(--border-strong) !important;
 }
+
+/* Toggle */
+[data-testid="stToggle"] label { color: var(--text-secondary) !important; }
+
+/* Slider */
+[data-testid="stSlider"] { color: var(--text-secondary) !important; }
+
+/* Select slider */
+div[data-baseweb="slider"] { color: var(--purple-bright) !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -247,7 +289,7 @@ def encode_image(img: Image.Image) -> str:
 def pdf_a_imagenes(archivo_pdf):
     imagenes = []
     if not PDF_DISPONIBLE:
-        st.error("❌ PDF no disponible. Instala PyMuPDF.")
+        st.error("❌ PDF no disponible.")
         return imagenes
     with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
         tmp.write(archivo_pdf.read())
@@ -268,29 +310,149 @@ def transcribir(imagenes, idioma, nivel, contexto, esquemas, modelo):
         return ""
 
     client = anthropic.Anthropic(api_key=api_key)
-
     lineas = {"Breve (2-3 líneas)": "2-3", "Medio (4-6 líneas)": "4-6", "Detallado (7-10 líneas)": "7-10"}.get(nivel, "4-6")
-    ctx = f"\nContexto: {contexto}" if contexto.strip() else ""
-    sin_esquemas = "\nNO uses tablas, esquemas visuales ni diagramas. Solo texto." if not esquemas else ""
+    ctx = f"\nContexto adicional: {contexto}" if contexto.strip() else ""
+    sin_esquemas = "\nNO uses tablas, esquemas visuales ni diagramas. Solo texto estructurado." if not esquemas else ""
 
-    system = f"""Eres un experto en crear apuntes de estudio para Bachillerato.
+    system = f"""Eres un experto en crear apuntes de estudio para estudiantes de Bachillerato.
 Responde SIEMPRE en {idioma}.
-Haz un resumen COMPACTO. Cada apartado en {lineas} líneas máximo.
-Mantén solo la información esencial: definiciones clave, datos importantes, clasificaciones principales.
-Elimina ejemplos secundarios, repeticiones y detalles innecesarios.
-Usa lenguaje académico directo pensado para memorizar en examen.
-NO inventes información. NO pongas introducciones ni conclusiones inventadas.{sin_esquemas}{ctx}"""
+
+ESTRUCTURA: Si las imágenes contienen varios temas o apartados distintos, organiza el resumen separando cada tema con su título numerado. Ejemplo:
+# 6. Título del tema
+[resumen del tema 6]
+
+---
+
+# 7. Título del tema
+[resumen del tema 7]
+
+Si solo hay un tema, pon su título al principio.
+
+FORMATO:
+- Título del tema: # Numero. Titulo
+- Apartados: ### 1. Nombre: explicación en el mismo renglón
+- Conceptos clave: **concepto**
+
+CALIDAD:
+- Resumen COMPACTO: cada apartado en {lineas} líneas máximo
+- Solo información esencial: definiciones clave, datos importantes, clasificaciones principales
+- Elimina ejemplos secundarios y repeticiones
+- Lenguaje académico directo para memorizar en examen
+- NO inventes información
+- NO pongas introducciones ni conclusiones inventadas{sin_esquemas}{ctx}"""
 
     content = [{"type": "image", "source": {"type": "base64", "media_type": "image/jpeg", "data": encode_image(img)}} for img in imagenes]
-    content.append({"type": "text", "text": "Resume el contenido de estos apuntes de forma compacta."})
+    content.append({"type": "text", "text": "Analiza todas las imágenes y organiza el resumen por temas/apartados detectados automáticamente."})
 
     resp = client.messages.create(
         model=modelo,
-        max_tokens=2048,
+        max_tokens=3000,
         system=system,
         messages=[{"role": "user", "content": content}]
     )
     return resp.content[0].text
+
+def extraer_titulo(resumen, contexto):
+    if contexto.strip():
+        return contexto.strip()[:60]
+    for linea in resumen.split('\n'):
+        linea = linea.strip()
+        if linea.startswith('# '):
+            titulo = linea[2:].strip()
+            return re.sub(r'[\\/*?:"<>|]', '', titulo)[:60]
+    return f"Resumen {datetime.datetime.now().strftime('%d/%m %H:%M')}"
+
+def crear_docx(resumen):
+    doc = Document()
+    NEGRO = RGBColor(0x00, 0x00, 0x00)
+
+    for s in doc.sections:
+        s.top_margin = s.bottom_margin = s.left_margin = s.right_margin = Pt(56)
+
+    doc.styles['Normal'].font.name = 'Liberation Serif'
+    doc.styles['Normal'].font.size = Pt(12)
+
+    def agregar_negritas(p, texto):
+        partes = re.split(r'\*\*(.*?)\*\*', texto)
+        for i, parte in enumerate(partes):
+            run = p.add_run(parte)
+            run.font.name = 'Liberation Serif'
+            run.font.size = Pt(12)
+            run.font.color.rgb = NEGRO
+            if i % 2 == 1:
+                run.bold = True
+
+    for linea in resumen.split('\n'):
+        linea = linea.strip()
+        if not linea:
+            p = doc.add_paragraph()
+            p.paragraph_format.space_after = Pt(2)
+            continue
+        if re.match(r'^# ', linea):
+            p = doc.add_paragraph()
+            p.paragraph_format.space_after = Pt(8)
+            p.paragraph_format.line_spacing = Pt(17)
+            run = p.add_run(linea[2:].strip())
+            run.bold = True
+            run.underline = True
+            run.font.name = 'Liberation Serif'
+            run.font.size = Pt(13)
+            run.font.color.rgb = NEGRO
+        elif re.match(r'^## ', linea):
+            p = doc.add_paragraph()
+            p.paragraph_format.space_before = Pt(8)
+            p.paragraph_format.space_after = Pt(4)
+            p.paragraph_format.line_spacing = Pt(17)
+            run = p.add_run(linea[3:].strip())
+            run.bold = True
+            run.underline = True
+            run.font.name = 'Liberation Serif'
+            run.font.size = Pt(12)
+            run.font.color.rgb = NEGRO
+        elif re.match(r'^### ', linea):
+            p = doc.add_paragraph()
+            p.paragraph_format.space_before = Pt(8)
+            p.paragraph_format.space_after = Pt(4)
+            p.paragraph_format.line_spacing = Pt(17)
+            texto_ap = linea[4:].strip()
+            m = re.match(r'^([^:]+):(.*)', texto_ap)
+            if m:
+                run = p.add_run(m.group(1).strip() + ': ')
+                run.bold = True
+                run.underline = True
+                run.font.name = 'Liberation Serif'
+                run.font.size = Pt(12)
+                run.font.color.rgb = NEGRO
+                agregar_negritas(p, m.group(2).strip())
+            else:
+                run = p.add_run(texto_ap)
+                run.bold = True
+                run.underline = True
+                run.font.name = 'Liberation Serif'
+                run.font.size = Pt(12)
+                run.font.color.rgb = NEGRO
+        elif re.match(r'^[-] ', linea):
+            p = doc.add_paragraph(style='List Bullet')
+            p.paragraph_format.space_after = Pt(2)
+            p.paragraph_format.line_spacing = Pt(17)
+            agregar_negritas(p, linea[2:].strip())
+        elif re.match(r'^\d+\. ', linea):
+            p = doc.add_paragraph(style='List Number')
+            p.paragraph_format.space_after = Pt(2)
+            p.paragraph_format.line_spacing = Pt(17)
+            agregar_negritas(p, re.sub(r'^\d+\. ', '', linea))
+        elif linea == '---':
+            doc.add_paragraph()
+        else:
+            p = doc.add_paragraph()
+            p.paragraph_format.space_after = Pt(5)
+            p.paragraph_format.line_spacing = Pt(17)
+            agregar_negritas(p, linea)
+
+    buf = io.BytesIO()
+    doc.save(buf)
+    buf.seek(0)
+    return buf.getvalue()
 
 def guardar_en_historial(titulo, resumen):
     if "historial" not in st.session_state:
@@ -309,7 +471,7 @@ def enviar_feedback(usuario, opinion, puntuacion):
             "fecha": datetime.datetime.now().strftime("%d/%m/%Y %H:%M"),
             "usuario": usuario,
             "opinion": opinion,
-            "puntuacion": puntuacion
+            "puntuacion": str(puntuacion)
         }, timeout=5)
         return True
     except:
@@ -325,7 +487,6 @@ def check_password():
             with open(logo_path, "rb") as f:
                 logo_b64 = base64.b64encode(f.read()).decode()
             st.markdown(f'<div style="text-align:center;margin-bottom:0.5rem"><img src="data:image/png;base64,{logo_b64}" style="width:80px;height:80px;object-fit:contain;"></div>', unsafe_allow_html=True)
-
         st.markdown("""
         <div class="hero-wrap">
             <div class="hero-badge">✦ Versión beta privada</div>
@@ -333,7 +494,6 @@ def check_password():
             <p class="hero-sub">Transforma apuntes en conocimiento</p>
         </div>
         """, unsafe_allow_html=True)
-
         st.markdown('<div class="card"><div class="card-label"><span class="dot"></span>🔒 &nbsp;Acceso privado</div><p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:1rem;">Versión beta privada. Introduce la contraseña para acceder.</p></div>', unsafe_allow_html=True)
         password = st.text_input("Contraseña", type="password", placeholder="Introduce la contraseña...")
         if st.button("✦  Entrar"):
@@ -379,10 +539,10 @@ with tab1:
     contexto = st.text_input("Contexto opcional", placeholder="Ej: Historia, tema 4 — neocolonialismo…", label_visibility="collapsed")
 
     archivos = st.file_uploader(
-        "Sube fotos o PDFs de tus apuntes",
+        "📎 Arrastra aquí tus fotos o PDFs",
         type=["jpg", "jpeg", "png", "pdf"],
         accept_multiple_files=True,
-        label_visibility="collapsed"
+        label_visibility="visible"
     )
 
     imagenes_procesadas = []
@@ -395,12 +555,13 @@ with tab1:
             else:
                 imagenes_procesadas.append(Image.open(archivo))
 
-        cols = st.columns(min(len(imagenes_procesadas), 4))
-        for i, img in enumerate(imagenes_procesadas[:4]):
-            with cols[i % 4]:
-                st.image(img, use_container_width=True)
-        if len(imagenes_procesadas) > 4:
-            st.caption(f"... y {len(imagenes_procesadas)-4} página(s) más")
+        if imagenes_procesadas:
+            cols = st.columns(min(len(imagenes_procesadas), 4))
+            for i, img in enumerate(imagenes_procesadas[:4]):
+                with cols[i % 4]:
+                    st.image(img, use_container_width=True)
+            if len(imagenes_procesadas) > 4:
+                st.caption(f"... y {len(imagenes_procesadas)-4} página(s) más")
 
     modelo_guardado = st.session_state.get("modelo_guardado", "claude-sonnet-4-5")
 
@@ -409,35 +570,37 @@ with tab1:
         if not imagenes_procesadas:
             st.warning("⚠️ Sube al menos una foto o PDF.")
         else:
-            barra = st.progress(0, text="Analizando apuntes…")
-            barra.progress(30, text="Transcribiendo…")
+            barra = st.progress(0, text="Preparando…")
+            barra.progress(20, text="Analizando imágenes…")
             resultado = transcribir(imagenes_procesadas, idioma, nivel, contexto, esquemas, modelo_guardado)
-            barra.progress(80, text="Generando resumen…")
+            barra.progress(90, text="Generando resumen…")
 
             if resultado:
                 barra.progress(100, text="✓ Listo")
-                titulo = contexto.strip() if contexto.strip() else f"Resumen {datetime.datetime.now().strftime('%d/%m %H:%M')}"
+                titulo = extraer_titulo(resultado, contexto)
                 guardar_en_historial(titulo, resultado)
 
-                st.markdown('<div class="result-card"><span class="result-badge">✓ Resumen listo</span></div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="result-card"><span class="result-badge">✓ {titulo}</span></div>', unsafe_allow_html=True)
                 st.markdown(resultado)
 
+                docx_bytes = crear_docx(resultado)
                 col_d1, col_d2 = st.columns(2)
                 with col_d1:
-                    st.download_button("⬇ Descargar .txt", data=resultado, file_name=f"{titulo}.txt", mime="text/plain")
+                    st.download_button(
+                        "⬇ Descargar .txt",
+                        data=resultado,
+                        file_name=f"{titulo}.txt",
+                        mime="text/plain",
+                        key="dl_txt"
+                    )
                 with col_d2:
-                    try:
-                        from docx import Document
-                        from docx.shared import Pt
-                        doc = Document()
-                        for linea in resultado.split('\n'):
-                            doc.add_paragraph(linea)
-                        buf = io.BytesIO()
-                        doc.save(buf)
-                        buf.seek(0)
-                        st.download_button("⬇ Descargar .docx", data=buf.getvalue(), file_name=f"{titulo}.docx", mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document")
-                    except:
-                        pass
+                    st.download_button(
+                        "⬇ Descargar .docx",
+                        data=docx_bytes,
+                        file_name=f"{titulo}.docx",
+                        mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                        key="dl_docx"
+                    )
 
 # ── TAB 2: HISTORIAL ──────────────────────────────────────────────────────────
 with tab2:
@@ -449,17 +612,27 @@ with tab2:
         for i, item in enumerate(historial):
             with st.expander(f"📄 {item['titulo']} — {item['fecha']}"):
                 st.markdown(item['resumen'])
-                st.download_button(
-                    "⬇ Descargar .txt",
-                    data=item['resumen'],
-                    file_name=f"{item['titulo']}.txt",
-                    mime="text/plain",
-                    key=f"dl_{i}"
-                )
+                col1, col2 = st.columns(2)
+                with col1:
+                    st.download_button(
+                        "⬇ .txt",
+                        data=item['resumen'],
+                        file_name=f"{item['titulo']}.txt",
+                        mime="text/plain",
+                        key=f"dl_txt_{i}"
+                    )
+                with col2:
+                    st.download_button(
+                        "⬇ .docx",
+                        data=crear_docx(item['resumen']),
+                        file_name=f"{item['titulo']}.docx",
+                        mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                        key=f"dl_docx_{i}"
+                    )
 
 # ── TAB 3: AJUSTES ────────────────────────────────────────────────────────────
 with tab3:
-    st.markdown('<div class="card-label"><span class="dot"></span>⚙️ &nbsp;Configuración</div>', unsafe_allow_html=True)
+    st.markdown('<div class="card-label"><span class="dot"></span>⚙️ &nbsp;Configuración avanzada</div>', unsafe_allow_html=True)
 
     st.markdown("**Modelo de Claude**")
     modelo = st.selectbox(
@@ -467,19 +640,15 @@ with tab3:
         ["claude-haiku-4-5", "claude-sonnet-4-5", "claude-opus-4-5"],
         index=1,
         format_func=lambda x: {
-            "claude-haiku-4-5": "⚡ Haiku — Más rápido",
+            "claude-haiku-4-5": "⚡ Haiku — Más rápido y económico",
             "claude-sonnet-4-5": "⚖️ Sonnet — Equilibrado (recomendado)",
             "claude-opus-4-5": "🎯 Opus — Máxima calidad"
         }[x],
         label_visibility="collapsed"
     )
 
-    st.markdown("**Nombre de usuario** (aparece en el feedback)")
-    nombre_usuario = st.text_input("nombre", placeholder="Tu nombre o alias…", label_visibility="collapsed", value=st.session_state.get("nombre_usuario", ""))
-
     if st.button("✦ Guardar ajustes"):
         st.session_state.modelo_guardado = modelo
-        st.session_state.nombre_usuario = nombre_usuario
         st.success("✓ Ajustes guardados.")
 
 # ── TAB 4: AYUDA ──────────────────────────────────────────────────────────────
@@ -487,27 +656,40 @@ with tab4:
     st.markdown('<div class="card-label"><span class="dot"></span>❓ &nbsp;Cómo usar Shaad IA</div>', unsafe_allow_html=True)
 
     pasos = [
-        ("1️⃣", "Sube tus fotos o PDF", "Arrastra las imágenes de tus apuntes o un PDF directamente."),
-        ("2️⃣", "Elige idioma y nivel", "Selecciona el idioma del resumen y el nivel de detalle que necesitas."),
-        ("3️⃣", "Añade contexto", "Opcional: escribe el tema para que el resumen sea más preciso."),
+        ("1️⃣", "Sube tus fotos o PDF", "Arrastra las imágenes o un PDF de tus apuntes."),
+        ("2️⃣", "Elige idioma y nivel", "Selecciona el idioma y el nivel de detalle."),
+        ("3️⃣", "Añade contexto", "Opcional pero recomendado: escribe el tema para mejores resultados."),
         ("4️⃣", "Genera el resumen", "Pulsa el botón y espera unos segundos."),
-        ("5️⃣", "Descarga", "Descarga el resultado en .txt o .docx directamente."),
+        ("5️⃣", "Descarga", "Descarga en .txt o .docx con formato correcto."),
+        ("💡", "Consejo", "Si subes varias fotos de temas distintos, Shaad IA las organiza automáticamente por apartados."),
     ]
-    for icono, titulo, desc in pasos:
-        st.markdown(f'<div class="feedback-item"><strong style="color:var(--purple-bright)">{icono} {titulo}</strong><br><span style="color:var(--text-secondary);font-size:0.9rem">{desc}</span></div>', unsafe_allow_html=True)
+    for icono, titulo_paso, desc in pasos:
+        st.markdown(f'<div class="feedback-item"><strong style="color:var(--purple-bright)">{icono} {titulo_paso}</strong><br><span style="color:var(--text-secondary);font-size:0.9rem">{desc}</span></div>', unsafe_allow_html=True)
 
     st.markdown("<div style='margin-top:1.5rem'></div>", unsafe_allow_html=True)
-    st.markdown('<div class="card-label"><span class="dot-green dot"></span>💬 &nbsp;Deja tu opinión</div>', unsafe_allow_html=True)
-    st.markdown('<p style="color:var(--text-secondary);font-size:0.88rem;margin-bottom:0.8rem;">Tu feedback ayuda a mejorar Shaad IA. ¡Cuéntanos qué te parece!</p>', unsafe_allow_html=True)
+    st.markdown('<div class="card-label"><span class="dot"></span>👤 &nbsp;Tu nombre</div>', unsafe_allow_html=True)
+    nombre_usuario = st.text_input(
+        "nombre",
+        placeholder="Tu nombre o alias para el feedback…",
+        label_visibility="collapsed",
+        value=st.session_state.get("nombre_usuario", "")
+    )
+    if nombre_usuario:
+        st.session_state.nombre_usuario = nombre_usuario
 
-    nombre_fb = st.session_state.get("nombre_usuario", "")
+    st.markdown("<div style='margin-top:1rem'></div>", unsafe_allow_html=True)
+    st.markdown('<div class="card-label"><span class="dot"></span>💬 &nbsp;Deja tu opinión</div>', unsafe_allow_html=True)
     opinion = st.text_area("Tu opinión", placeholder="¿Qué mejorarías? ¿Qué te gusta? ¿Qué falla?", label_visibility="collapsed")
     puntuacion = st.select_slider("Puntuación", options=[1, 2, 3, 4, 5], value=5)
 
     if st.button("✦ Enviar feedback"):
         if opinion.strip():
             with st.spinner("Enviando…"):
-                ok = enviar_feedback(nombre_fb or "Anónimo", opinion, puntuacion)
+                ok = enviar_feedback(
+                    st.session_state.get("nombre_usuario", "Anónimo"),
+                    opinion,
+                    puntuacion
+                )
             if ok:
                 st.success("✓ ¡Gracias por tu feedback!")
             else:
