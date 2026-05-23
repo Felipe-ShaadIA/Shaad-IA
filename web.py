@@ -665,7 +665,11 @@ with tab1:
         esquemas = st.toggle(t("tablas"), value=False)
 
     contexto = st.text_input("ctx", placeholder=t("contexto_ph"), label_visibility="collapsed")
+    MAX_FOTOS = 5
     archivos = st.file_uploader(t("uploader"), type=["jpg", "jpeg", "png", "pdf"], accept_multiple_files=True)
+    if archivos and len(archivos) > MAX_FOTOS:
+        st.warning(f"⚠️ Máximo {MAX_FOTOS} archivos por resumen. Se usarán los primeros {MAX_FOTOS}.")
+        archivos = archivos[:MAX_FOTOS]
 
     imagenes_procesadas = []
     if archivos:
@@ -683,7 +687,7 @@ with tab1:
             if len(imagenes_procesadas) > 4:
                 st.caption(f"... +{len(imagenes_procesadas)-4}")
 
-    modelo_guardado = st.session_state.get("modelo_guardado", "claude-sonnet-4-5")
+    modelo_guardado = st.session_state.get("modelo_guardado", "claude-haiku-4-5")
     st.markdown("<div style='margin-top:1rem'></div>", unsafe_allow_html=True)
 
     if st.button(t("btn_transformar"), type="primary"):
