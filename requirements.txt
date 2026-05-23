@@ -1,6 +1,8 @@
+streamlit
+anthropic>=0.25.0
 groq
 python-dotenv
 pillow
 python-docx
-streamlit
-anthropic
+pymupdf
+requests
