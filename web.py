@@ -57,7 +57,6 @@ TEXTOS = {
         "idioma": "🌐 Idioma",
         "nivel": "📊 Nivel",
         "tablas": "📋 Tablas/esquemas",
-        "contexto_ph": "Ej: Historia, tema 4 — neocolonialismo…",
         "uploader": "📎 Arrastra aquí tus fotos o PDFs (máx. 5)",
         "btn_transformar": "✦  Transformar apuntes",
         "descarga_txt": "⬇ Descargar .txt",
@@ -68,7 +67,6 @@ TEXTOS = {
         "idioma_app_label": "🌍 Idioma de la app",
         "guardar": "✦ Guardar ajustes",
         "ajustes_guardados": "✓ Ajustes guardados.",
-        "ayuda_titulo": "❓ Cómo usar Shaad IA",
         "nombre_ph": "Tu nombre o alias para el feedback…",
         "opinion_ph": "¿Qué mejorarías? ¿Qué te gusta? ¿Qué falla?",
         "enviar_fb": "✦ Enviar feedback",
@@ -99,7 +97,6 @@ TEXTOS = {
         "idioma": "🌐 Language",
         "nivel": "📊 Level",
         "tablas": "📋 Tables/diagrams",
-        "contexto_ph": "E.g.: History, topic 4 — neocolonialism…",
         "uploader": "📎 Drag your photos or PDFs here (max. 5)",
         "btn_transformar": "✦  Transform notes",
         "descarga_txt": "⬇ Download .txt",
@@ -110,7 +107,6 @@ TEXTOS = {
         "idioma_app_label": "🌍 App language",
         "guardar": "✦ Save settings",
         "ajustes_guardados": "✓ Settings saved.",
-        "ayuda_titulo": "❓ How to use Shaad IA",
         "nombre_ph": "Your name or alias for feedback…",
         "opinion_ph": "What would you improve? What do you like? What's wrong?",
         "enviar_fb": "✦ Send feedback",
@@ -141,7 +137,6 @@ TEXTOS = {
         "idioma": "🌐 Idioma",
         "nivel": "📊 Nivel",
         "tablas": "📋 Táboas/esquemas",
-        "contexto_ph": "Ex: Historia, tema 4 — neocolonialismo…",
         "uploader": "📎 Arrastra aquí as túas fotos ou PDFs (máx. 5)",
         "btn_transformar": "✦  Transformar apuntes",
         "descarga_txt": "⬇ Descargar .txt",
@@ -152,7 +147,6 @@ TEXTOS = {
         "idioma_app_label": "🌍 Idioma da app",
         "guardar": "✦ Gardar axustes",
         "ajustes_guardados": "✓ Axustes gardados.",
-        "ayuda_titulo": "❓ Como usar Shaad IA",
         "nombre_ph": "O teu nome ou alias para o feedback…",
         "opinion_ph": "Que mellorarías? Que che gusta? Que falla?",
         "enviar_fb": "✦ Enviar feedback",
@@ -226,21 +220,8 @@ html, body, [data-testid="stAppViewContainer"] {{ font-family: var(--font-body) 
 [data-testid="stHeader"], [data-testid="stToolbar"], footer {{ display: none !important; }}
 .block-container {{ max-width: 720px !important; padding: 2rem 1.5rem 4rem !important; }}
 .hero-wrap {{ text-align: center; padding: 1.5rem 0 1rem; }}
-.hero-badge {{
-    display: inline-flex; align-items: center; gap: 6px;
-    background: var(--purple-soft); border: 1px solid var(--border-strong);
-    border-radius: 999px; padding: 4px 14px; font-size: 0.70rem;
-    letter-spacing: 0.12em; text-transform: uppercase; color: var(--purple-bright);
-    font-family: var(--font-display); font-weight: 600; margin-bottom: 0.8rem;
-}}
-.hero-title {{
-    font-family: var(--font-display) !important;
-    font-size: clamp(2.4rem, 6vw, 3.8rem) !important;
-    font-weight: 800 !important; line-height: 1.05 !important;
-    background: linear-gradient(135deg, #c084fc 0%, #a855f7 35%, #4ade80 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text; margin: 0 0 0.4rem !important; letter-spacing: -0.02em;
-}}
+.hero-badge {{ display: inline-flex; align-items: center; gap: 6px; background: var(--purple-soft); border: 1px solid var(--border-strong); border-radius: 999px; padding: 4px 14px; font-size: 0.70rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--purple-bright); font-family: var(--font-display); font-weight: 600; margin-bottom: 0.8rem; }}
+.hero-title {{ font-family: var(--font-display) !important; font-size: clamp(2.4rem, 6vw, 3.8rem) !important; font-weight: 800 !important; line-height: 1.05 !important; background: linear-gradient(135deg, #c084fc 0%, #a855f7 35%, #4ade80 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin: 0 0 0.4rem !important; letter-spacing: -0.02em; }}
 .hero-sub {{ font-family: var(--font-display); font-size: 0.78rem; letter-spacing: 0.20em; text-transform: uppercase; color: var(--text-muted); }}
 .card {{ background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-card); padding: 1.4rem 1.6rem; box-shadow: var(--shadow-card); margin-bottom: 1rem; transition: border-color 0.25s, box-shadow 0.25s; }}
 .card:hover {{ border-color: var(--border-strong); box-shadow: var(--shadow-card), var(--shadow-glow-p); }}
@@ -317,7 +298,7 @@ def transcribir(imagenes, idioma, nivel, contexto, esquemas):
         return ""
     client = anthropic.Anthropic(api_key=api_key)
     lineas = {"Breve (2-3 líneas)": "2-3", "Medio (4-6 líneas)": "4-6", "Detallado (7-10 líneas)": "7-10"}.get(nivel, "4-6")
-    ctx = f"\nContexto adicional: {contexto}" if contexto.strip() else ""
+    ctx = f"\nInstrucciones del usuario: {contexto}" if contexto.strip() else ""
     sin_esquemas = "\nNO uses tablas, esquemas visuales ni diagramas. Solo texto estructurado." if not esquemas else ""
 
     system = f"""Eres un experto en crear apuntes de estudio para estudiantes de Bachillerato.
@@ -494,8 +475,8 @@ with tab1:
         esquemas = st.toggle(t("tablas"), value=False)
 
     st.markdown('<p style="color:var(--text-secondary);font-size:0.85rem;margin:0.8rem 0 0.3rem;">💬 <strong style="color:var(--text-primary)">Instrucciones opcionales</strong> — dile a Shaad IA cómo quieres el resumen</p>', unsafe_allow_html=True)
-st.markdown('<p style="color:var(--text-muted);font-size:0.78rem;margin-bottom:0.4rem;">Ejemplos: <em>"Solo los conceptos clave"</em> · <em>"Para examen de Historia"</em> · <em>"Esquema visual"</em></p>', unsafe_allow_html=True)
-contexto = st.text_input("ctx", placeholder="Escribe aquí tus instrucciones...", label_visibility="collapsed")
+    st.markdown('<p style="color:var(--text-muted);font-size:0.78rem;margin-bottom:0.4rem;">Ejemplos: <em>"Solo los conceptos clave"</em> · <em>"Para examen de Historia"</em> · <em>"Esquema visual"</em></p>', unsafe_allow_html=True)
+    contexto = st.text_input("ctx", placeholder="Escribe aquí tus instrucciones...", label_visibility="collapsed")
 
     archivos = st.file_uploader(t("uploader"), type=["jpg", "jpeg", "png", "pdf"], accept_multiple_files=True)
     if archivos and len(archivos) > MAX_FOTOS:
@@ -582,7 +563,7 @@ with tab4:
     pasos = [
         ("1️⃣", "Sube tus fotos o PDF", "Arrastra las imágenes o un PDF de tus apuntes. Máximo 5 archivos."),
         ("2️⃣", "Elige idioma y nivel", "Selecciona el idioma del resumen y el nivel de detalle."),
-        ("3️⃣", "Añade contexto", "Opcional pero recomendado: escribe el tema para mejores resultados."),
+        ("3️⃣", "Instrucciones opcionales", "Puedes escribir instrucciones como 'solo conceptos clave', 'para examen de Historia' o 'esquema visual'."),
         ("4️⃣", "Genera el resumen", "Pulsa el botón y espera unos segundos."),
         ("5️⃣", "Descarga", "Descarga en .txt o .docx con formato y negritas correctas."),
         ("💡", "Consejo", "Si subes varias fotos de temas distintos, Shaad IA las organiza automáticamente por apartados."),
