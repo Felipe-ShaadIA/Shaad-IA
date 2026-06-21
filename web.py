@@ -71,7 +71,7 @@ TEXTOS = {
         "descarga_txt": "⬇ Descargar .txt",
         "descarga_docx": "⬇ Descargar .docx",
         "sin_resumenes": "Aún no hay resúmenes guardados.",
-        "ir_a_resumir": "→ Generar mi primer resumen",
+        "ir_a_resumir": "✨ Generar mi primer resumen",
         "ajustes_titulo": "⚙️ Configuración",
         "tema_label": "🎨 Tema visual",
         "idioma_app_label": "🌍 Idioma de la app",
@@ -114,7 +114,7 @@ TEXTOS = {
         "descarga_txt": "⬇ Download .txt",
         "descarga_docx": "⬇ Download .docx",
         "sin_resumenes": "No summaries saved yet.",
-        "ir_a_resumir": "→ Generate my first summary",
+        "ir_a_resumir": "✨ Generate my first summary",
         "ajustes_titulo": "⚙️ Settings",
         "tema_label": "🎨 Visual theme",
         "idioma_app_label": "🌍 App language",
@@ -157,7 +157,7 @@ TEXTOS = {
         "descarga_txt": "⬇ Descargar .txt",
         "descarga_docx": "⬇ Descargar .docx",
         "sin_resumenes": "Aínda non hai resumos gardados.",
-        "ir_a_resumir": "→ Xerar o meu primeiro resumo",
+        "ir_a_resumir": "✨ Xerar o meu primeiro resumo",
         "ajustes_titulo": "⚙️ Configuración",
         "tema_label": "🎨 Tema visual",
         "idioma_app_label": "🌍 Idioma da app",
@@ -249,17 +249,16 @@ html, body, [data-testid="stAppViewContainer"] {{ font-family: var(--font-body) 
 .card-label {{ display: flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 700; font-size: 0.78rem; letter-spacing: 0.10em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 0.8rem; }}
 .card-label .dot {{ width: 6px; height: 6px; border-radius: 50%; background: var(--purple-bright); box-shadow: 0 0 8px var(--purple-bright); }}
 
-/* ── Chips: pastilla limpia sin capas extra ── */
-[data-testid="stColumn"] [data-testid="stButton"] > button,
-[data-testid="stColumn"] [data-testid="stBaseButton-secondary"] {{
+/* Chips limpios en columnas */
+[data-testid="stColumn"] [data-testid="stButton"] > button {{
     background: transparent !important;
     border: 1.5px solid #a855f7 !important;
     border-radius: 999px !important;
     color: #f0eeff !important;
     font-family: var(--font-body) !important;
-    font-size: 0.76rem !important;
+    font-size: 0.80rem !important;
     font-weight: 500 !important;
-    padding: 4px 10px !important;
+    padding: 5px 8px !important;
     width: 100% !important;
     box-shadow: none !important;
     outline: none !important;
@@ -269,36 +268,31 @@ html, body, [data-testid="stAppViewContainer"] {{ font-family: var(--font-body) 
     text-overflow: ellipsis !important;
     line-height: 1.4 !important;
 }}
-[data-testid="stColumn"] [data-testid="stButton"] > button:hover,
-[data-testid="stColumn"] [data-testid="stBaseButton-secondary"]:hover {{
+[data-testid="stColumn"] [data-testid="stButton"] > button:hover {{
     background: linear-gradient(135deg, #7c3aed, #a855f7, #06b6d4) !important;
     border-color: transparent !important;
     color: white !important;
     box-shadow: 0 0 12px rgba(168,85,247,0.35) !important;
 }}
-[data-testid="stColumn"] [data-testid="stButton"] > button:focus,
-[data-testid="stColumn"] [data-testid="stBaseButton-secondary"]:focus {{
-    outline: none !important;
-    box-shadow: none !important;
+[data-testid="stColumn"] [data-testid="stButton"] > button:focus {{
+    outline: none !important; box-shadow: none !important;
 }}
 
-/* ── Botón principal ── */
-[data-testid="stButton"] > button[kind="primary"],
-[data-testid="stBaseButton-primary"] {{
+/* Botón principal */
+[data-testid="stButton"] > button[kind="primary"] {{
     background: linear-gradient(135deg, #7c3aed, #a855f7, #06b6d4) !important;
     color: #fff !important; border: none !important; border-radius: 14px !important;
     font-family: var(--font-display) !important; font-weight: 800 !important;
     font-size: 1.05rem !important; padding: 1rem 2rem !important; width: 100% !important;
     box-shadow: 0 0 30px rgba(168,85,247,0.45), 0 4px 20px rgba(124,58,237,0.40) !important;
-    transition: transform 0.15s, box-shadow 0.15s !important;
-    outline: none !important;
+    transition: transform 0.15s, box-shadow 0.15s !important; outline: none !important;
 }}
 [data-testid="stButton"] > button[kind="primary"]:hover {{
     transform: translateY(-3px) !important;
     box-shadow: 0 0 50px rgba(168,85,247,0.65), 0 8px 28px rgba(124,58,237,0.55) !important;
 }}
 
-/* ── Inputs ── */
+/* Inputs */
 [data-testid="stTextInput"] input {{
     background: var(--bg-surface) !important; border: 1px solid var(--border) !important;
     border-radius: 10px !important; color: var(--text-primary) !important;
@@ -315,7 +309,7 @@ html, body, [data-testid="stAppViewContainer"] {{ font-family: var(--font-body) 
 [data-testid="stTextArea"] textarea::placeholder {{ color: var(--placeholder) !important; opacity: 1 !important; }}
 [data-testid="stTextArea"] label {{ color: var(--text-secondary) !important; font-size: 0.88rem !important; }}
 
-/* ── Uploader limpio y centrado ── */
+/* Uploader */
 [data-testid="stFileUploader"] {{ margin-top: 0.5rem; }}
 [data-testid="stFileUploader"] label {{ color: var(--text-secondary) !important; font-size: 0.88rem !important; }}
 section[data-testid="stFileUploaderDropzone"] {{
@@ -334,34 +328,27 @@ section[data-testid="stFileUploaderDropzone"]:hover {{
     border-color: #c084fc !important;
 }}
 section[data-testid="stFileUploaderDropzone"] > div {{
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 100% !important;
+    display: flex !important; flex-direction: column !important;
+    align-items: center !important; justify-content: center !important; width: 100% !important;
 }}
 [data-testid="stFileUploader"] * {{ color: var(--text-secondary) !important; }}
 [data-testid="stFileUploader"] svg {{ fill: var(--purple-bright) !important; }}
 [data-testid="stFileUploaderDropzoneInstructions"] small {{ display: none !important; }}
 [data-testid="stFileUploaderDropzone"] button {{
-    margin: 0 auto !important;
-    display: block !important;
-    background: var(--purple-soft) !important;
-    border: 1px solid var(--border-strong) !important;
-    border-radius: 8px !important;
-    color: var(--text-primary) !important;
-    padding: 4px 16px !important;
-    font-size: 0.82rem !important;
+    margin: 0 auto !important; display: block !important;
+    background: var(--purple-soft) !important; border: 1px solid var(--border-strong) !important;
+    border-radius: 8px !important; color: var(--text-primary) !important;
+    padding: 4px 16px !important; font-size: 0.82rem !important;
 }}
 
-/* ── Selectbox ── */
+/* Selectbox */
 [data-testid="stSelectbox"] > div > div {{ background: var(--bg-surface) !important; border: 1px solid var(--border) !important; border-radius: 10px !important; color: var(--text-primary) !important; }}
 [data-testid="stSelectbox"] label {{ color: var(--text-secondary) !important; font-size: 0.88rem !important; }}
 [data-baseweb="select"] * {{ color: var(--text-primary) !important; }}
 [data-baseweb="popover"] {{ background: var(--bg-card) !important; border: 1px solid var(--border-strong) !important; border-radius: 12px !important; }}
 [role="option"]:hover {{ background: var(--purple-soft) !important; }}
 
-/* ── Download buttons ── */
+/* Download */
 [data-testid="stDownloadButton"] > button {{ background: var(--bg-card) !important; color: var(--text-primary) !important; border: 1px solid var(--border-strong) !important; border-radius: 10px !important; font-family: var(--font-display) !important; font-weight: 600 !important; font-size: 0.85rem !important; padding: 0.6rem 1.2rem !important; width: 100% !important; box-shadow: none !important; transition: all 0.2s !important; outline: none !important; }}
 [data-testid="stDownloadButton"] > button:hover {{ background: var(--purple-soft) !important; border-color: var(--purple-bright) !important; transform: translateY(-1px) !important; }}
 
@@ -391,7 +378,6 @@ hr {{ border-color: var(--border) !important; }}
 [data-testid="stTabs"] [aria-selected="true"] {{ background: var(--purple-soft) !important; color: var(--purple-bright) !important; border: 1px solid var(--border-strong) !important; }}
 [data-testid="stToggle"] label {{ color: var(--text-secondary) !important; }}
 
-/* ── Slider con gradiente de marca ── */
 [data-testid="stSlider"] > div > div > div {{ background: linear-gradient(135deg, #7c3aed, #a855f7, #06b6d4) !important; }}
 [data-testid="stSlider"] [role="slider"] {{ background: #a855f7 !important; border: 2px solid #c084fc !important; box-shadow: 0 0 12px rgba(168,85,247,0.6) !important; }}
 [data-testid="stSlider"] label {{ color: var(--text-secondary) !important; }}
@@ -569,7 +555,6 @@ def mostrar_hero():
         st.markdown(f'<div style="text-align:center;margin:0.5rem 0 0.3rem"><img src="data:image/png;base64,{logo_b64}" style="width:90px;height:90px;object-fit:contain;filter:drop-shadow(0 0 16px rgba(168,85,247,0.5));"></div>', unsafe_allow_html=True)
     st.markdown(f'<div class="hero-wrap"><div class="hero-badge">{t("badge")}</div><h1 class="hero-title">Shaad IA</h1><p class="hero-sub">{t("slogan")}</p></div>', unsafe_allow_html=True)
 
-# ── Login ─────────────────────────────────────────────────────────────────────
 def check_password():
     if "autenticado" not in st.session_state:
         st.session_state.autenticado = False
@@ -577,7 +562,7 @@ def check_password():
         mostrar_hero()
         st.markdown(f'<div class="card"><div class="card-label"><span class="dot"></span>🔒 &nbsp;Acceso privado</div><p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:1rem;">{t("login_desc")}</p></div>', unsafe_allow_html=True)
         password = st.text_input(t("contrasena"), type="password", placeholder=t("contrasena_ph"))
-        if st.button(t("entrar")):
+        if st.button(t("entrar"), type="primary"):
             if password == get_app_password():
                 st.session_state.autenticado = True
                 st.rerun()
@@ -591,7 +576,6 @@ if not check_password():
 
 mostrar_hero()
 
-# ── Tabs ──────────────────────────────────────────────────────────────────────
 tab1, tab2, tab3, tab4 = st.tabs([t("tab1"), t("tab2"), t("tab3"), t("tab4")])
 
 # ── TAB 1: RESUMIR ────────────────────────────────────────────────────────────
@@ -609,9 +593,12 @@ with tab1:
     if "contexto_val" not in st.session_state:
         st.session_state.contexto_val = ""
 
-    chip_cols = st.columns(len(CHIPS))
+    # Chips en 2 filas de 3
+    chip_cols1 = st.columns(3)
+    chip_cols2 = st.columns(3)
     for i, chip in enumerate(CHIPS):
-        with chip_cols[i]:
+        col = chip_cols1[i] if i < 3 else chip_cols2[i - 3]
+        with col:
             if st.button(chip, key=f"chip_{i}"):
                 st.session_state.contexto_val = chip
                 st.rerun()
@@ -683,7 +670,7 @@ with tab2:
             <p style="color:var(--text-secondary);font-size:0.95rem;margin-bottom:1rem;">Aún no hay resúmenes guardados.</p>
         </div>
         """, unsafe_allow_html=True)
-        if st.button(t("ir_a_resumir")):
+        if st.button(t("ir_a_resumir"), type="primary"):
             st.rerun()
     else:
         for i, item in enumerate(historial):
@@ -711,7 +698,7 @@ with tab3:
         format_func=lambda x: {"es": "🇪🇸 Castellano", "en": "🇬🇧 English", "gl": "🏴 Galego"}[x],
         label_visibility="collapsed")
 
-    if st.button(t("guardar")):
+    if st.button(t("guardar"), type="primary"):
         st.session_state.tema = tema
         st.session_state.idioma_app = idioma_app
         st.success(t("ajustes_guardados"))
@@ -746,7 +733,7 @@ with tab4:
     with col_s2:
         st.markdown(f'<div style="padding-top:1.8rem;font-size:0.9rem">{"⭐" * puntuacion}</div>', unsafe_allow_html=True)
 
-    if st.button(t("enviar_fb")):
+    if st.button(t("enviar_fb"), type="primary"):
         if opinion.strip():
             with st.spinner("Enviando…"):
                 ok = enviar_feedback(st.session_state.get("nombre_usuario", "Anónimo"), opinion, puntuacion)
@@ -754,5 +741,4 @@ with tab4:
         else:
             st.warning(t("fb_vacio"))
 
-# ── Footer ────────────────────────────────────────────────────────────────────
 st.markdown(f'<div class="footer-custom">{t("footer")}</div>', unsafe_allow_html=True)
