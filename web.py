@@ -37,7 +37,6 @@ CHIPS = [
     "Con ejemplos",
 ]
 
-# Iconos SVG Lucide (outline, morado/cian de marca)
 def icon(name, color="#a855f7", size=16):
     icons = {
         "globe": f'<svg xmlns="http://www.w3.org/2000/svg" width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
@@ -51,14 +50,13 @@ def icon(name, color="#a855f7", size=16):
         "clock": f'<svg xmlns="http://www.w3.org/2000/svg" width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
         "star": f'<svg xmlns="http://www.w3.org/2000/svg" width="{size}" height="{size}" viewBox="0 0 24 24" fill="{color}" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
         "user": f'<svg xmlns="http://www.w3.org/2000/svg" width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
-        "send": f'<svg xmlns="http://www.w3.org/2000/svg" width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>',
         "lock": f'<svg xmlns="http://www.w3.org/2000/svg" width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
-        "sparkles": f'<svg xmlns="http://www.w3.org/2000/svg" width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.88 5.76a1 1 0 0 0 .95.69h6.06l-4.9 3.56a1 1 0 0 0-.36 1.12L17.5 20l-4.9-3.56a1 1 0 0 0-1.18 0L6.5 20l1.87-5.87a1 1 0 0 0-.36-1.12L3.11 9.45h6.06a1 1 0 0 0 .95-.69L12 3z"/></svg>',
+        "file-text": f'<svg xmlns="http://www.w3.org/2000/svg" width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>',
+        "refresh-cw": f'<svg xmlns="http://www.w3.org/2000/svg" width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>',
     }
     return icons.get(name, "")
 
 def il(name, color="#a855f7", size=15):
-    """Icono inline para usar en texto HTML."""
     return f'<span style="display:inline-flex;align-items:center;vertical-align:middle;margin-right:5px">{icon(name, color, size)}</span>'
 
 def get_secret(key, default=""):
@@ -232,6 +230,7 @@ def get_css():
     --shadow-glow-g: 0 0 30px rgba(22,163,74,0.08);
     --font-display: 'Syne', sans-serif; --font-body: 'DM Sans', sans-serif;
     --placeholder: rgba(70,70,120,0.6);
+    --drop-bg: rgba(237,233,255,0.8);
 }
 html, body, [data-testid="stAppViewContainer"] { background-color: var(--bg-base) !important; }
 [data-testid="stAppViewContainer"] {
@@ -251,6 +250,7 @@ html, body, [data-testid="stAppViewContainer"] { background-color: var(--bg-base
     --shadow-glow-g: 0 0 40px rgba(74,222,128,0.12);
     --font-display: 'Syne', sans-serif; --font-body: 'DM Sans', sans-serif;
     --placeholder: rgba(200,190,230,0.55);
+    --drop-bg: rgba(15,15,26,0.8);
 }
 html, body, [data-testid="stAppViewContainer"] { background-color: var(--bg-base) !important; }
 [data-testid="stAppViewContainer"] {
@@ -258,6 +258,14 @@ html, body, [data-testid="stAppViewContainer"] { background-color: var(--bg-base
         radial-gradient(ellipse 60% 40% at 50% -10%, rgba(124,58,237,0.20) 0%, transparent 70%),
         radial-gradient(ellipse 40% 30% at 90% 80%, rgba(34,197,94,0.08) 0%, transparent 60%);
 }"""
+
+# Generamos el SVG de la nube para inyectarlo como data-uri en el pseudo-elemento
+upload_svg_b64 = base64.b64encode(
+    icon("upload-cloud", "#a855f7", 40).encode()
+).decode()
+
+titulo_uploader = t("uploader_titulo") if "uploader_titulo" in TEXTOS["es"] else "Sube tus apuntes"
+sub_uploader = t("uploader_sub") if "uploader_sub" in TEXTOS["es"] else ""
 
 st.markdown(f"""
 <style>
@@ -275,6 +283,29 @@ html, body, [data-testid="stAppViewContainer"] {{ font-family: var(--font-body) 
 .card {{ background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-card); padding: 1.4rem 1.6rem; box-shadow: var(--shadow-card); margin-bottom: 1rem; }}
 .card-label {{ display: flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 700; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 0.8rem; }}
 .card-label .dot {{ width: 5px; height: 5px; border-radius: 50%; background: var(--purple-bright); box-shadow: 0 0 6px var(--purple-bright); flex-shrink: 0; }}
+
+/* Pestañas con iconos inline */
+[data-testid="stTabs"] [data-baseweb="tab-list"] {{
+    background: var(--bg-surface) !important;
+    border-radius: 12px !important; padding: 4px !important;
+    border: 1px solid var(--border) !important; gap: 2px !important;
+}}
+[data-testid="stTabs"] [data-baseweb="tab"] {{
+    background: transparent !important; color: var(--text-muted) !important;
+    border-radius: 8px !important; font-family: var(--font-display) !important;
+    font-weight: 600 !important; font-size: 0.82rem !important; border: none !important;
+    padding: 6px 12px !important; display: flex !important; align-items: center !important; gap: 6px !important;
+}}
+[data-testid="stTabs"] [aria-selected="true"] {{
+    background: var(--purple-soft) !important; color: var(--purple-bright) !important;
+    border: 1px solid var(--border-strong) !important;
+}}
+[data-testid="stTabs"] [aria-selected="true"] p,
+[data-testid="stTabs"] [data-baseweb="tab"] p {{
+    color: inherit !important; font-size: inherit !important;
+    font-family: inherit !important; font-weight: inherit !important;
+    margin: 0 !important;
+}}
 
 /* Chips */
 [data-testid="stColumn"] [data-testid="stButton"] > button {{
@@ -296,8 +327,7 @@ html, body, [data-testid="stAppViewContainer"] {{ font-family: var(--font-body) 
 }}
 [data-testid="stColumn"] [data-testid="stButton"] > button:hover {{
     background: linear-gradient(135deg, #7c3aed, #a855f7, #06b6d4) !important;
-    border-color: transparent !important;
-    color: white !important;
+    border-color: transparent !important; color: white !important;
     box-shadow: 0 0 12px rgba(168,85,247,0.35) !important;
 }}
 [data-testid="stColumn"] [data-testid="stButton"] > button:focus {{
@@ -312,7 +342,6 @@ html, body, [data-testid="stAppViewContainer"] {{ font-family: var(--font-body) 
     font-size: 1.05rem !important; padding: 1rem 2rem !important; width: 100% !important;
     box-shadow: 0 0 30px rgba(168,85,247,0.45), 0 4px 20px rgba(124,58,237,0.40) !important;
     transition: transform 0.15s, box-shadow 0.15s !important; outline: none !important;
-    letter-spacing: 0.01em !important;
 }}
 [data-testid="stButton"] > button[kind="primary"]:hover {{
     transform: translateY(-3px) !important;
@@ -336,40 +365,56 @@ html, body, [data-testid="stAppViewContainer"] {{ font-family: var(--font-body) 
 [data-testid="stTextArea"] textarea::placeholder {{ color: var(--placeholder) !important; opacity: 1 !important; }}
 [data-testid="stTextArea"] label {{ color: var(--text-secondary) !important; }}
 
-/* Uploader centrado con zona grande */
+/* Uploader — ocultar label nativo, estilizar dropzone */
 [data-testid="stFileUploader"] label {{ display: none !important; }}
+[data-testid="stFileUploader"] {{ margin-top: 0.5rem; }}
 section[data-testid="stFileUploaderDropzone"] {{
-    background: rgba(15,15,26,0.8) !important;
+    background: var(--drop-bg) !important;
     border: 2px dashed #a855f7 !important;
     border-radius: var(--radius-card) !important;
-    min-height: 150px !important;
-    padding: 1.5rem !important;
+    min-height: 160px !important;
+    padding: 1.5rem 1rem !important;
     transition: border-color 0.2s, background 0.2s !important;
+    position: relative !important;
 }}
 section[data-testid="stFileUploaderDropzone"]:hover {{
     background: rgba(168,85,247,0.07) !important;
     border-color: #c084fc !important;
 }}
+/* Centrar todo el contenido de la dropzone */
 section[data-testid="stFileUploaderDropzone"] > div {{
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 0.4rem !important;
+    gap: 0.3rem !important;
     width: 100% !important;
     text-align: center !important;
 }}
-[data-testid="stFileUploader"] * {{ color: var(--text-secondary) !important; }}
-[data-testid="stFileUploader"] svg {{ fill: var(--purple-bright) !important; width: 32px !important; height: 32px !important; }}
-[data-testid="stFileUploaderDropzoneInstructions"] small {{ display: none !important; }}
-[data-testid="stFileUploaderDropzoneInstructions"] span {{
+/* Icono nativo de Streamlit — hacerlo más grande y morado */
+[data-testid="stFileUploader"] svg {{
+    width: 36px !important; height: 36px !important;
+    stroke: #a855f7 !important; fill: none !important;
+}}
+/* Texto principal dentro del uploader */
+[data-testid="stFileUploaderDropzoneInstructions"] > div > span {{
     font-family: var(--font-display) !important;
     font-size: 1rem !important;
     font-weight: 700 !important;
     color: var(--text-primary) !important;
+    display: block !important;
 }}
+/* Ocultar el "200MB per file" en inglés */
+[data-testid="stFileUploaderDropzoneInstructions"] small {{
+    display: none !important;
+}}
+/* Subtexto de formatos */
+[data-testid="stFileUploaderDropzoneInstructions"] > div > small {{
+    display: none !important;
+}}
+/* Botón Browse centrado */
 [data-testid="stFileUploaderDropzone"] button {{
-    margin: 0.3rem auto 0 !important;
+    margin: 0.4rem auto 0 !important;
     display: block !important;
     background: var(--purple-soft) !important;
     border: 1px solid var(--border-strong) !important;
@@ -379,11 +424,13 @@ section[data-testid="stFileUploaderDropzone"] > div {{
     font-size: 0.82rem !important;
     font-weight: 600 !important;
     cursor: pointer !important;
+    transition: all 0.18s !important;
 }}
 [data-testid="stFileUploaderDropzone"] button:hover {{
     background: var(--purple-bright) !important;
     color: white !important;
 }}
+[data-testid="stFileUploader"] * {{ color: var(--text-secondary) !important; }}
 
 /* Selectbox */
 [data-testid="stSelectbox"] > div > div {{ background: var(--bg-surface) !important; border: 1px solid var(--border) !important; border-radius: 10px !important; color: var(--text-primary) !important; }}
@@ -423,11 +470,7 @@ hr {{ border-color: var(--border) !important; }}
 .empty-state {{ text-align: center; padding: 3rem 1rem; }}
 .footer-custom {{ text-align: center; padding: 2rem 0 0; color: var(--text-muted); font-size: 0.78rem; font-family: var(--font-body); }}
 
-[data-testid="stTabs"] [data-baseweb="tab-list"] {{ background: var(--bg-surface) !important; border-radius: 12px !important; padding: 4px !important; border: 1px solid var(--border) !important; gap: 2px !important; }}
-[data-testid="stTabs"] [data-baseweb="tab"] {{ background: transparent !important; color: var(--text-muted) !important; border-radius: 8px !important; font-family: var(--font-display) !important; font-weight: 600 !important; font-size: 0.85rem !important; border: none !important; }}
-[data-testid="stTabs"] [aria-selected="true"] {{ background: var(--purple-soft) !important; color: var(--purple-bright) !important; border: 1px solid var(--border-strong) !important; }}
 [data-testid="stToggle"] label {{ color: var(--text-secondary) !important; }}
-
 [data-testid="stSlider"] > div > div > div {{ background: linear-gradient(135deg, #7c3aed, #a855f7, #06b6d4) !important; }}
 [data-testid="stSlider"] [role="slider"] {{ background: #a855f7 !important; border: 2px solid #c084fc !important; box-shadow: 0 0 12px rgba(168,85,247,0.6) !important; }}
 [data-testid="stSlider"] label {{ color: var(--text-secondary) !important; }}
@@ -460,7 +503,7 @@ def pdf_a_imagenes(archivo_pdf):
 def transcribir(imagenes, idioma, nivel, contexto, esquemas):
     api_key = get_api_key()
     if not api_key:
-        st.error("No se encontró la API key de Anthropic.")
+        st.error("No se encontró la API key.")
         return ""
     client = anthropic.Anthropic(api_key=api_key)
     lineas = {"Breve (2-3 líneas)": "2-3", "Medio (4-6 líneas)": "4-6", "Detallado (7-10 líneas)": "7-10"}.get(nivel, "4-6")
@@ -626,7 +669,14 @@ if not check_password():
 
 mostrar_hero()
 
-tab1, tab2, tab3, tab4 = st.tabs([t("tab1"), t("tab2"), t("tab3"), t("tab4")])
+# Pestañas con iconos SVG inline usando markdown
+tab_labels = [
+    f"{icon('file-text', 'currentColor', 14)} {t('tab1')}",
+    f"{icon('clock', 'currentColor', 14)} {t('tab2')}",
+    f"{icon('settings', 'currentColor', 14)} {t('tab3')}",
+    f"{icon('help-circle', 'currentColor', 14)} {t('tab4')}",
+]
+tab1, tab2, tab3, tab4 = st.tabs(tab_labels)
 
 # ── TAB 1: RESUMIR ────────────────────────────────────────────────────────────
 with tab1:
@@ -664,12 +714,12 @@ with tab1:
     if contexto != st.session_state.contexto_val:
         st.session_state.contexto_val = contexto
 
-    # Uploader con cabecera decorativa encima
+    # Subtexto encima del uploader (dentro de la caja lo gestiona Streamlit)
     st.markdown(f"""
-    <div style="text-align:center;margin:1rem 0 0.3rem">
+    <div style="text-align:center;margin:1rem 0 -0.5rem">
         {icon("upload-cloud", "#a855f7", 36)}
         <p style="font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--text-primary);margin:0.3rem 0 0.1rem">{t("uploader_titulo")}</p>
-        <p style="font-size:0.75rem;color:var(--text-muted);margin:0">{t("uploader_sub")}</p>
+        <p style="font-size:0.75rem;color:var(--text-muted);margin:0 0 0.5rem">{t("uploader_sub")}</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -769,7 +819,7 @@ with tab3:
 
 # ── TAB 4: AYUDA ──────────────────────────────────────────────────────────────
 with tab4:
-    st.markdown(f'<div class="card-label"><span class="dot"></span>{il("help-circle")} {t("ajustes_titulo") if False else "Cómo usar Shaad IA"}</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="card-label"><span class="dot"></span>{il("help-circle")} Cómo usar Shaad IA</div>', unsafe_allow_html=True)
 
     pasos = [
         ("1", "Sube tus fotos o PDF", "Arrastra las imágenes o un PDF. Máximo 5 archivos."),
