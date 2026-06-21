@@ -18,7 +18,7 @@ except ImportError:
     PDF_DISPONIBLE = False
 
 st.set_page_config(
-    page_title="Shaad IA · Apuntes Inteligentes",
+    page_title="Shaad IA · Resúmenes Inteligentes",
     page_icon="✦",
     layout="centered",
     initial_sidebar_state="collapsed",
@@ -27,6 +27,15 @@ st.set_page_config(
 FEEDBACK_URL = "https://script.google.com/macros/s/AKfycbzwMjJAxwTqDmwMToomyDf_JIsg3hhmN5l902gp3yKiWSdTSpGuaH6fv-KRtblM9H6IVg/exec"
 MODELO = "claude-haiku-4-5"
 MAX_FOTOS = 5
+
+CHIPS = [
+    "Solo conceptos clave",
+    "Para examen mañana",
+    "Muy detallado",
+    "Solo definiciones",
+    "Resumen corto",
+    "Incluir ejemplos",
+]
 
 def get_secret(key, default=""):
     try:
@@ -48,17 +57,18 @@ def get_idioma_app():
 
 TEXTOS = {
     "es": {
-        "badge": "✦ IA para estudiantes",
-        "slogan": "Transforma apuntes en conocimiento",
-        "tab1": "✦ Transcriptor",
+        "badge": "✦ Especializada en resúmenes",
+        "slogan": "Sube tus apuntes y obtén un resumen estructurado en segundos",
+        "tab1": "✦ Resumir",
         "tab2": "🕐 Historial",
         "tab3": "⚙️ Ajustes",
         "tab4": "❓ Ayuda",
         "idioma": "🌐 Idioma",
         "nivel": "📊 Nivel",
         "tablas": "📋 Tablas/esquemas",
-        "uploader": "📎 Arrastra aquí tus fotos o PDFs (máx. 5)",
-        "btn_transformar": "✦  Transformar apuntes",
+        "uploader_titulo": "📚 Sube tus apuntes",
+        "uploader_sub": "Arrastra aquí tus fotos o PDFs · JPG · PNG · PDF · Máx. 5 archivos",
+        "btn_transformar": "✨  Generar resumen con IA",
         "descarga_txt": "⬇ Descargar .txt",
         "descarga_docx": "⬇ Descargar .docx",
         "sin_resumenes": "No hay resúmenes todavía. ¡Genera el primero!",
@@ -67,11 +77,11 @@ TEXTOS = {
         "idioma_app_label": "🌍 Idioma de la app",
         "guardar": "✦ Guardar ajustes",
         "ajustes_guardados": "✓ Ajustes guardados.",
-        "nombre_ph": "Tu nombre o alias para el feedback…",
+        "nombre_ph": "Tu nombre o alias…",
         "opinion_ph": "¿Qué mejorarías? ¿Qué te gusta? ¿Qué falla?",
         "enviar_fb": "✦ Enviar feedback",
         "fb_ok": "✓ ¡Gracias por tu feedback!",
-        "fb_error": "❌ Error al enviar. Inténtalo de nuevo.",
+        "fb_error": "❌ Error al enviar.",
         "fb_vacio": "⚠️ Escribe tu opinión antes de enviar.",
         "footer": "Hecho con <span>♥</span> para estudiantes como tú &nbsp;·&nbsp; <strong>Shaad IA</strong> © 2026",
         "login_badge": "✦ Versión beta privada",
@@ -86,19 +96,22 @@ TEXTOS = {
         "analizando": "Analizando imágenes…",
         "generando": "Generando resumen…",
         "listo": "✓ Listo",
+        "instrucciones_titulo": "💬 Instrucciones rápidas",
+        "instrucciones_sub": "Selecciona una opción o escribe las tuyas:",
     },
     "en": {
-        "badge": "✦ AI for students",
-        "slogan": "Transform notes into knowledge",
-        "tab1": "✦ Transcriptor",
+        "badge": "✦ Specialized in summaries",
+        "slogan": "Upload your notes and get a structured summary in seconds",
+        "tab1": "✦ Summarize",
         "tab2": "🕐 History",
         "tab3": "⚙️ Settings",
         "tab4": "❓ Help",
         "idioma": "🌐 Language",
         "nivel": "📊 Level",
         "tablas": "📋 Tables/diagrams",
-        "uploader": "📎 Drag your photos or PDFs here (max. 5)",
-        "btn_transformar": "✦  Transform notes",
+        "uploader_titulo": "📚 Upload your notes",
+        "uploader_sub": "Drag your photos or PDFs here · JPG · PNG · PDF · Max. 5 files",
+        "btn_transformar": "✨  Generate summary with AI",
         "descarga_txt": "⬇ Download .txt",
         "descarga_docx": "⬇ Download .docx",
         "sin_resumenes": "No summaries yet. Generate your first one!",
@@ -107,11 +120,11 @@ TEXTOS = {
         "idioma_app_label": "🌍 App language",
         "guardar": "✦ Save settings",
         "ajustes_guardados": "✓ Settings saved.",
-        "nombre_ph": "Your name or alias for feedback…",
+        "nombre_ph": "Your name or alias…",
         "opinion_ph": "What would you improve? What do you like? What's wrong?",
         "enviar_fb": "✦ Send feedback",
         "fb_ok": "✓ Thanks for your feedback!",
-        "fb_error": "❌ Error sending. Try again.",
+        "fb_error": "❌ Error sending.",
         "fb_vacio": "⚠️ Write your opinion before sending.",
         "footer": "Made with <span>♥</span> for students like you &nbsp;·&nbsp; <strong>Shaad IA</strong> © 2026",
         "login_badge": "✦ Private beta version",
@@ -126,19 +139,22 @@ TEXTOS = {
         "analizando": "Analyzing images…",
         "generando": "Generating summary…",
         "listo": "✓ Done",
+        "instrucciones_titulo": "💬 Quick instructions",
+        "instrucciones_sub": "Select an option or write your own:",
     },
     "gl": {
-        "badge": "✦ IA para estudantes",
-        "slogan": "Transforma apuntes en coñecemento",
-        "tab1": "✦ Transcritor",
+        "badge": "✦ Especializada en resumos",
+        "slogan": "Sube os teus apuntes e obtén un resumo estruturado en segundos",
+        "tab1": "✦ Resumir",
         "tab2": "🕐 Historial",
         "tab3": "⚙️ Axustes",
         "tab4": "❓ Axuda",
         "idioma": "🌐 Idioma",
         "nivel": "📊 Nivel",
         "tablas": "📋 Táboas/esquemas",
-        "uploader": "📎 Arrastra aquí as túas fotos ou PDFs (máx. 5)",
-        "btn_transformar": "✦  Transformar apuntes",
+        "uploader_titulo": "📚 Sube os teus apuntes",
+        "uploader_sub": "Arrastra aquí as túas fotos ou PDFs · JPG · PNG · PDF · Máx. 5 arquivos",
+        "btn_transformar": "✨  Xerar resumo con IA",
         "descarga_txt": "⬇ Descargar .txt",
         "descarga_docx": "⬇ Descargar .docx",
         "sin_resumenes": "Non hai resumos aínda. ¡Xera o primeiro!",
@@ -147,11 +163,11 @@ TEXTOS = {
         "idioma_app_label": "🌍 Idioma da app",
         "guardar": "✦ Gardar axustes",
         "ajustes_guardados": "✓ Axustes gardados.",
-        "nombre_ph": "O teu nome ou alias para o feedback…",
+        "nombre_ph": "O teu nome ou alias…",
         "opinion_ph": "Que mellorarías? Que che gusta? Que falla?",
         "enviar_fb": "✦ Enviar feedback",
         "fb_ok": "✓ Grazas polo teu feedback!",
-        "fb_error": "❌ Erro ao enviar. Téntao de novo.",
+        "fb_error": "❌ Erro ao enviar.",
         "fb_vacio": "⚠️ Escribe a túa opinión antes de enviar.",
         "footer": "Feito con <span>♥</span> para estudantes coma ti &nbsp;·&nbsp; <strong>Shaad IA</strong> © 2026",
         "login_badge": "✦ Versión beta privada",
@@ -166,6 +182,8 @@ TEXTOS = {
         "analizando": "Analizando imaxes…",
         "generando": "Xerando resumo…",
         "listo": "✓ Listo",
+        "instrucciones_titulo": "💬 Instrucións rápidas",
+        "instrucciones_sub": "Selecciona unha opción ou escribe as túas:",
     }
 }
 
@@ -222,26 +240,33 @@ html, body, [data-testid="stAppViewContainer"] {{ font-family: var(--font-body) 
 .hero-wrap {{ text-align: center; padding: 1.5rem 0 1rem; }}
 .hero-badge {{ display: inline-flex; align-items: center; gap: 6px; background: var(--purple-soft); border: 1px solid var(--border-strong); border-radius: 999px; padding: 4px 14px; font-size: 0.70rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--purple-bright); font-family: var(--font-display); font-weight: 600; margin-bottom: 0.8rem; }}
 .hero-title {{ font-family: var(--font-display) !important; font-size: clamp(2.4rem, 6vw, 3.8rem) !important; font-weight: 800 !important; line-height: 1.05 !important; background: linear-gradient(135deg, #c084fc 0%, #a855f7 35%, #4ade80 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin: 0 0 0.4rem !important; letter-spacing: -0.02em; }}
-.hero-sub {{ font-family: var(--font-display); font-size: 0.78rem; letter-spacing: 0.20em; text-transform: uppercase; color: var(--text-muted); }}
+.hero-sub {{ font-family: var(--font-body); font-size: 0.92rem; color: var(--text-secondary); margin-top: 0.3rem; line-height: 1.5; }}
 .card {{ background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-card); padding: 1.4rem 1.6rem; box-shadow: var(--shadow-card); margin-bottom: 1rem; transition: border-color 0.25s, box-shadow 0.25s; }}
 .card:hover {{ border-color: var(--border-strong); box-shadow: var(--shadow-card), var(--shadow-glow-p); }}
 .card-label {{ display: flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 700; font-size: 0.78rem; letter-spacing: 0.10em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 0.8rem; }}
 .card-label .dot {{ width: 6px; height: 6px; border-radius: 50%; background: var(--purple-bright); box-shadow: 0 0 8px var(--purple-bright); }}
+.upload-zone {{ background: var(--bg-surface); border: 2px dashed var(--border-strong); border-radius: var(--radius-card); padding: 2rem 1rem; text-align: center; margin-bottom: 1rem; transition: border-color 0.2s, background 0.2s; }}
+.upload-zone:hover {{ border-color: var(--purple-bright); background: var(--purple-soft); }}
+.upload-icon {{ font-size: 2.5rem; margin-bottom: 0.5rem; }}
+.upload-titulo {{ font-family: var(--font-display); font-weight: 700; font-size: 1rem; color: var(--text-primary); margin-bottom: 0.3rem; }}
+.upload-sub {{ font-size: 0.78rem; color: var(--text-muted); }}
+.chip-container {{ display: flex; flex-wrap: wrap; gap: 8px; margin: 0.5rem 0 0.8rem; }}
+.chip {{ background: var(--bg-surface); border: 1px solid var(--border-strong); border-radius: 999px; padding: 4px 14px; font-size: 0.78rem; color: var(--text-secondary); cursor: pointer; transition: all 0.2s; font-family: var(--font-body); display: inline-block; }}
+.chip:hover {{ background: var(--purple-soft); border-color: var(--purple-bright); color: var(--purple-bright); }}
 [data-testid="stTextInput"] input {{ background: var(--bg-surface) !important; border: 1px solid var(--border) !important; border-radius: 10px !important; color: var(--text-primary) !important; font-family: var(--font-body) !important; padding: 0.75rem 1rem !important; }}
 [data-testid="stTextInput"] input:focus {{ border-color: var(--purple-bright) !important; box-shadow: 0 0 0 3px rgba(168,85,247,0.15) !important; }}
 [data-testid="stTextInput"] label, [data-testid="stTextArea"] label {{ color: var(--text-secondary) !important; font-size: 0.88rem !important; }}
 [data-testid="stTextArea"] textarea {{ background: var(--bg-surface) !important; border: 1px solid var(--border) !important; border-radius: 10px !important; color: var(--text-primary) !important; font-family: var(--font-body) !important; }}
-[data-testid="stFileUploader"] {{ border: 2px dashed rgba(138,92,246,0.4) !important; border-radius: var(--radius-card) !important; background: var(--bg-surface) !important; padding: 1rem !important; }}
+[data-testid="stFileUploader"] {{ border: none !important; background: transparent !important; padding: 0 !important; }}
 [data-testid="stFileUploader"] * {{ color: var(--text-secondary) !important; }}
-[data-testid="stFileUploader"] svg {{ fill: var(--purple-bright) !important; }}
-section[data-testid="stFileUploaderDropzone"] {{ background: var(--bg-surface) !important; border: none !important; }}
+section[data-testid="stFileUploaderDropzone"] {{ background: var(--bg-surface) !important; border: 2px dashed var(--border-strong) !important; border-radius: var(--radius-card) !important; }}
 [data-testid="stSelectbox"] > div > div {{ background: var(--bg-surface) !important; border: 1px solid var(--border) !important; border-radius: 10px !important; color: var(--text-primary) !important; }}
 [data-testid="stSelectbox"] label {{ color: var(--text-secondary) !important; font-size: 0.88rem !important; }}
 [data-baseweb="select"] * {{ color: var(--text-primary) !important; }}
 [data-baseweb="popover"] {{ background: var(--bg-card) !important; border: 1px solid var(--border-strong) !important; border-radius: 12px !important; }}
 [role="option"]:hover {{ background: var(--purple-soft) !important; }}
-[data-testid="stButton"] > button {{ background: linear-gradient(135deg, var(--purple-mid), var(--purple-bright)) !important; color: #fff !important; border: none !important; border-radius: var(--radius-btn) !important; font-family: var(--font-display) !important; font-weight: 700 !important; font-size: 0.90rem !important; padding: 0.70rem 2rem !important; width: 100% !important; box-shadow: 0 4px 20px rgba(124,58,237,0.40) !important; transition: transform 0.15s, box-shadow 0.15s !important; }}
-[data-testid="stButton"] > button:hover {{ transform: translateY(-2px) !important; box-shadow: 0 8px 28px rgba(124,58,237,0.55) !important; }}
+[data-testid="stButton"] > button {{ background: linear-gradient(135deg, #7c3aed, #a855f7, #06b6d4) !important; color: #fff !important; border: none !important; border-radius: 14px !important; font-family: var(--font-display) !important; font-weight: 800 !important; font-size: 1.05rem !important; padding: 1rem 2rem !important; width: 100% !important; box-shadow: 0 0 30px rgba(168,85,247,0.45), 0 4px 20px rgba(124,58,237,0.40) !important; transition: transform 0.15s, box-shadow 0.15s !important; letter-spacing: 0.02em !important; }}
+[data-testid="stButton"] > button:hover {{ transform: translateY(-3px) !important; box-shadow: 0 0 50px rgba(168,85,247,0.65), 0 8px 28px rgba(124,58,237,0.55) !important; }}
 [data-testid="stDownloadButton"] > button {{ background: var(--bg-card) !important; color: var(--text-primary) !important; border: 1px solid var(--border-strong) !important; border-radius: 10px !important; font-family: var(--font-display) !important; font-weight: 600 !important; font-size: 0.85rem !important; padding: 0.6rem 1.2rem !important; width: 100% !important; box-shadow: none !important; transition: all 0.2s !important; }}
 [data-testid="stDownloadButton"] > button:hover {{ background: var(--purple-soft) !important; border-color: var(--purple-bright) !important; transform: translateY(-1px) !important; color: var(--text-primary) !important; }}
 [data-testid="stAlert"] {{ background: var(--bg-card) !important; border-radius: 12px !important; border: 1px solid var(--border) !important; }}
@@ -457,7 +482,7 @@ logo_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "
 if os.path.exists(logo_path):
     with open(logo_path, "rb") as f:
         logo_b64 = base64.b64encode(f.read()).decode()
-    st.markdown(f'<div style="text-align:center;margin:1rem 0 0.5rem"><img src="data:image/png;base64,{logo_b64}" style="width:90px;height:90px;object-fit:contain;"></div>', unsafe_allow_html=True)
+    st.markdown(f'<div style="text-align:center;margin:1rem 0 0.3rem"><img src="data:image/png;base64,{logo_b64}" style="width:100px;height:100px;object-fit:contain;filter:drop-shadow(0 0 20px rgba(168,85,247,0.5));"></div>', unsafe_allow_html=True)
 
 st.markdown(f'<div class="hero-wrap"><div class="hero-badge">{t("badge")}</div><h1 class="hero-title">Shaad IA</h1><p class="hero-sub">{t("slogan")}</p></div>', unsafe_allow_html=True)
 
@@ -474,11 +499,30 @@ with tab1:
     with col3:
         esquemas = st.toggle(t("tablas"), value=False)
 
-    st.markdown('<p style="color:var(--text-secondary);font-size:0.85rem;margin:0.8rem 0 0.3rem;">💬 <strong style="color:var(--text-primary)">Instrucciones opcionales</strong> — dile a Shaad IA cómo quieres el resumen</p>', unsafe_allow_html=True)
-    st.markdown('<p style="color:var(--text-muted);font-size:0.78rem;margin-bottom:0.4rem;">Ejemplos: <em>"Solo los conceptos clave"</em> · <em>"Para examen de Historia"</em> · <em>"Esquema visual"</em></p>', unsafe_allow_html=True)
-    contexto = st.text_input("ctx", placeholder="Escribe aquí tus instrucciones...", label_visibility="collapsed")
+    # Chips rápidos
+    st.markdown(f'<p style="color:var(--text-secondary);font-size:0.85rem;margin:0.8rem 0 0.3rem;"><strong style="color:var(--text-primary)">{t("instrucciones_titulo")}</strong> — {t("instrucciones_sub")}</p>', unsafe_allow_html=True)
 
-    archivos = st.file_uploader(t("uploader"), type=["jpg", "jpeg", "png", "pdf"], accept_multiple_files=True)
+    if "contexto_val" not in st.session_state:
+        st.session_state.contexto_val = ""
+
+    chips_html = '<div class="chip-container">'
+    for chip in CHIPS:
+        chips_html += f'<span class="chip" onclick="void(0)">{chip}</span>'
+    chips_html += '</div>'
+    st.markdown(chips_html, unsafe_allow_html=True)
+
+    cols_chips = st.columns(len(CHIPS))
+    for i, chip in enumerate(CHIPS):
+        with cols_chips[i]:
+            if st.button(chip, key=f"chip_{i}"):
+                st.session_state.contexto_val = chip
+
+    contexto = st.text_input("ctx", value=st.session_state.contexto_val, placeholder="O escribe tus propias instrucciones...", label_visibility="collapsed")
+
+    # Uploader
+    st.markdown(f'<div class="upload-zone"><div class="upload-icon">📚</div><div class="upload-titulo">{t("uploader_titulo")}</div><div class="upload-sub">{t("uploader_sub")}</div></div>', unsafe_allow_html=True)
+
+    archivos = st.file_uploader("uploader", type=["jpg", "jpeg", "png", "pdf"], accept_multiple_files=True, label_visibility="collapsed")
     if archivos and len(archivos) > MAX_FOTOS:
         st.warning(t("aviso_max"))
         archivos = archivos[:MAX_FOTOS]
@@ -499,7 +543,7 @@ with tab1:
             if len(imagenes_procesadas) > 4:
                 st.caption(f"... +{len(imagenes_procesadas)-4}")
 
-    st.markdown("<div style='margin-top:1rem'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='margin-top:1.2rem'></div>", unsafe_allow_html=True)
     if st.button(t("btn_transformar"), type="primary"):
         if not imagenes_procesadas:
             st.warning(t("aviso_foto"))
@@ -563,7 +607,7 @@ with tab4:
     pasos = [
         ("1️⃣", "Sube tus fotos o PDF", "Arrastra las imágenes o un PDF de tus apuntes. Máximo 5 archivos."),
         ("2️⃣", "Elige idioma y nivel", "Selecciona el idioma del resumen y el nivel de detalle."),
-        ("3️⃣", "Instrucciones opcionales", "Puedes escribir instrucciones como 'solo conceptos clave', 'para examen de Historia' o 'esquema visual'."),
+        ("3️⃣", "Instrucciones rápidas", "Selecciona un chip como 'Solo conceptos clave' o escribe tus propias instrucciones."),
         ("4️⃣", "Genera el resumen", "Pulsa el botón y espera unos segundos."),
         ("5️⃣", "Descarga", "Descarga en .txt o .docx con formato y negritas correctas."),
         ("💡", "Consejo", "Si subes varias fotos de temas distintos, Shaad IA las organiza automáticamente por apartados."),
