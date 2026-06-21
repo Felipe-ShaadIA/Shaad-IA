@@ -493,7 +493,9 @@ with tab1:
     with col3:
         esquemas = st.toggle(t("tablas"), value=False)
 
-    contexto = st.text_input("ctx", placeholder=t("contexto_ph"), label_visibility="collapsed")
+    st.markdown('<p style="color:var(--text-secondary);font-size:0.85rem;margin:0.8rem 0 0.3rem;">💬 <strong style="color:var(--text-primary)">Instrucciones opcionales</strong> — dile a Shaad IA cómo quieres el resumen</p>', unsafe_allow_html=True)
+st.markdown('<p style="color:var(--text-muted);font-size:0.78rem;margin-bottom:0.4rem;">Ejemplos: <em>"Solo los conceptos clave"</em> · <em>"Para examen de Historia"</em> · <em>"Esquema visual"</em></p>', unsafe_allow_html=True)
+contexto = st.text_input("ctx", placeholder="Escribe aquí tus instrucciones...", label_visibility="collapsed")
 
     archivos = st.file_uploader(t("uploader"), type=["jpg", "jpeg", "png", "pdf"], accept_multiple_files=True)
     if archivos and len(archivos) > MAX_FOTOS:
