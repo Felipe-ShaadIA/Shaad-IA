@@ -67,7 +67,6 @@ TEXTOS = {
         "nivel": "📊 Nivel de detalle",
         "tablas": "📋 Tablas/esquemas",
         "uploader": "📚 Arrastra tus apuntes aquí · JPG · PNG · PDF · Máx. 5 archivos",
-        "uploader_nota": "Máximo 5 archivos · JPG, PNG, PDF",
         "btn_transformar": "✨  Generar resumen con IA",
         "descarga_txt": "⬇ Descargar .txt",
         "descarga_docx": "⬇ Descargar .docx",
@@ -111,7 +110,6 @@ TEXTOS = {
         "nivel": "📊 Detail level",
         "tablas": "📋 Tables/diagrams",
         "uploader": "📚 Drag your notes here · JPG · PNG · PDF · Max. 5 files",
-        "uploader_nota": "Max. 5 files · JPG, PNG, PDF",
         "btn_transformar": "✨  Generate summary with AI",
         "descarga_txt": "⬇ Download .txt",
         "descarga_docx": "⬇ Download .docx",
@@ -155,7 +153,6 @@ TEXTOS = {
         "nivel": "📊 Nivel de detalle",
         "tablas": "📋 Táboas/esquemas",
         "uploader": "📚 Arrastra os teus apuntes aquí · JPG · PNG · PDF · Máx. 5 arquivos",
-        "uploader_nota": "Máximo 5 arquivos · JPG, PNG, PDF",
         "btn_transformar": "✨  Xerar resumo con IA",
         "descarga_txt": "⬇ Descargar .txt",
         "descarga_docx": "⬇ Descargar .docx",
@@ -248,40 +245,44 @@ html, body, [data-testid="stAppViewContainer"] {{ font-family: var(--font-body) 
 .hero-title {{ font-family: var(--font-display) !important; font-size: clamp(1.8rem, 5vw, 2.8rem) !important; font-weight: 800 !important; line-height: 1.05 !important; background: linear-gradient(135deg, #c084fc 0%, #a855f7 35%, #4ade80 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin: 0 0 0.3rem !important; letter-spacing: -0.02em; }}
 .hero-sub {{ font-family: var(--font-body); font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5; }}
 
-.card {{ background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-card); padding: 1.4rem 1.6rem; box-shadow: var(--shadow-card); margin-bottom: 1rem; transition: border-color 0.25s, box-shadow 0.25s; }}
+.card {{ background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-card); padding: 1.4rem 1.6rem; box-shadow: var(--shadow-card); margin-bottom: 1rem; }}
 .card-label {{ display: flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 700; font-size: 0.78rem; letter-spacing: 0.10em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 0.8rem; }}
 .card-label .dot {{ width: 6px; height: 6px; border-radius: 50%; background: var(--purple-bright); box-shadow: 0 0 8px var(--purple-bright); }}
 
-/* Chips con gradiente en borde, relleno al hover */
-[data-testid="stButton"] > button[kind="secondary"],
-[data-testid="stBaseButton-secondary"] {{
+/* ── Chips: pastilla limpia sin capas extra ── */
+[data-testid="stColumn"] [data-testid="stButton"] > button,
+[data-testid="stColumn"] [data-testid="stBaseButton-secondary"] {{
     background: transparent !important;
-    border: 1.5px solid transparent !important;
-    background-clip: padding-box !important;
-    outline: 1.5px solid #a855f7 !important;
-    outline-offset: -1.5px !important;
+    border: 1.5px solid #a855f7 !important;
     border-radius: 999px !important;
     color: #f0eeff !important;
     font-family: var(--font-body) !important;
-    font-size: 0.78rem !important;
+    font-size: 0.76rem !important;
     font-weight: 500 !important;
-    padding: 4px 12px !important;
-    width: auto !important;
-    min-width: 0 !important;
+    padding: 4px 10px !important;
+    width: 100% !important;
     box-shadow: none !important;
+    outline: none !important;
     transition: all 0.18s !important;
     white-space: nowrap !important;
-    letter-spacing: 0 !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    line-height: 1.4 !important;
 }}
-[data-testid="stButton"] > button[kind="secondary"]:hover,
-[data-testid="stBaseButton-secondary"]:hover {{
+[data-testid="stColumn"] [data-testid="stButton"] > button:hover,
+[data-testid="stColumn"] [data-testid="stBaseButton-secondary"]:hover {{
     background: linear-gradient(135deg, #7c3aed, #a855f7, #06b6d4) !important;
-    outline: none !important;
+    border-color: transparent !important;
     color: white !important;
-    box-shadow: 0 0 14px rgba(168,85,247,0.4) !important;
+    box-shadow: 0 0 12px rgba(168,85,247,0.35) !important;
+}}
+[data-testid="stColumn"] [data-testid="stButton"] > button:focus,
+[data-testid="stColumn"] [data-testid="stBaseButton-secondary"]:focus {{
+    outline: none !important;
+    box-shadow: none !important;
 }}
 
-/* Botón principal */
+/* ── Botón principal ── */
 [data-testid="stButton"] > button[kind="primary"],
 [data-testid="stBaseButton-primary"] {{
     background: linear-gradient(135deg, #7c3aed, #a855f7, #06b6d4) !important;
@@ -292,19 +293,18 @@ html, body, [data-testid="stAppViewContainer"] {{ font-family: var(--font-body) 
     transition: transform 0.15s, box-shadow 0.15s !important;
     outline: none !important;
 }}
-[data-testid="stButton"] > button[kind="primary"]:hover,
-[data-testid="stBaseButton-primary"]:hover {{
+[data-testid="stButton"] > button[kind="primary"]:hover {{
     transform: translateY(-3px) !important;
     box-shadow: 0 0 50px rgba(168,85,247,0.65), 0 8px 28px rgba(124,58,237,0.55) !important;
 }}
 
-/* Inputs con placeholder visible */
+/* ── Inputs ── */
 [data-testid="stTextInput"] input {{
     background: var(--bg-surface) !important; border: 1px solid var(--border) !important;
     border-radius: 10px !important; color: var(--text-primary) !important;
     font-family: var(--font-body) !important; padding: 0.75rem 1rem !important;
 }}
-[data-testid="stTextInput"] input:focus {{ border-color: var(--purple-bright) !important; box-shadow: 0 0 0 3px rgba(168,85,247,0.15) !important; }}
+[data-testid="stTextInput"] input:focus {{ border-color: var(--purple-bright) !important; box-shadow: 0 0 0 3px rgba(168,85,247,0.15) !important; outline: none !important; }}
 [data-testid="stTextInput"] input::placeholder {{ color: var(--placeholder) !important; opacity: 1 !important; }}
 [data-testid="stTextInput"] label {{ color: var(--text-secondary) !important; font-size: 0.88rem !important; }}
 [data-testid="stTextArea"] textarea {{
@@ -315,33 +315,54 @@ html, body, [data-testid="stAppViewContainer"] {{ font-family: var(--font-body) 
 [data-testid="stTextArea"] textarea::placeholder {{ color: var(--placeholder) !important; opacity: 1 !important; }}
 [data-testid="stTextArea"] label {{ color: var(--text-secondary) !important; font-size: 0.88rem !important; }}
 
-/* Uploader con presencia */
+/* ── Uploader limpio y centrado ── */
 [data-testid="stFileUploader"] {{ margin-top: 0.5rem; }}
+[data-testid="stFileUploader"] label {{ color: var(--text-secondary) !important; font-size: 0.88rem !important; }}
 section[data-testid="stFileUploaderDropzone"] {{
-    background: rgba(15,15,26,0.7) !important;
-    border: 2px dashed var(--purple-bright) !important;
+    background: rgba(15,15,26,0.8) !important;
+    border: 2px dashed #a855f7 !important;
     border-radius: var(--radius-card) !important;
-    min-height: 120px !important;
+    min-height: 110px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    text-align: center !important;
     transition: border-color 0.2s, background 0.2s !important;
 }}
 section[data-testid="stFileUploaderDropzone"]:hover {{
-    background: rgba(168,85,247,0.08) !important;
+    background: rgba(168,85,247,0.07) !important;
     border-color: #c084fc !important;
+}}
+section[data-testid="stFileUploaderDropzone"] > div {{
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
 }}
 [data-testid="stFileUploader"] * {{ color: var(--text-secondary) !important; }}
 [data-testid="stFileUploader"] svg {{ fill: var(--purple-bright) !important; }}
 [data-testid="stFileUploaderDropzoneInstructions"] small {{ display: none !important; }}
+[data-testid="stFileUploaderDropzone"] button {{
+    margin: 0 auto !important;
+    display: block !important;
+    background: var(--purple-soft) !important;
+    border: 1px solid var(--border-strong) !important;
+    border-radius: 8px !important;
+    color: var(--text-primary) !important;
+    padding: 4px 16px !important;
+    font-size: 0.82rem !important;
+}}
 
+/* ── Selectbox ── */
 [data-testid="stSelectbox"] > div > div {{ background: var(--bg-surface) !important; border: 1px solid var(--border) !important; border-radius: 10px !important; color: var(--text-primary) !important; }}
 [data-testid="stSelectbox"] label {{ color: var(--text-secondary) !important; font-size: 0.88rem !important; }}
 [data-baseweb="select"] * {{ color: var(--text-primary) !important; }}
 [data-baseweb="popover"] {{ background: var(--bg-card) !important; border: 1px solid var(--border-strong) !important; border-radius: 12px !important; }}
 [role="option"]:hover {{ background: var(--purple-soft) !important; }}
 
-[data-testid="stDownloadButton"] > button {{ background: var(--bg-card) !important; color: var(--text-primary) !important; border: 1px solid var(--border-strong) !important; border-radius: 10px !important; font-family: var(--font-display) !important; font-weight: 600 !important; font-size: 0.85rem !important; padding: 0.6rem 1.2rem !important; width: 100% !important; box-shadow: none !important; transition: all 0.2s !important; }}
+/* ── Download buttons ── */
+[data-testid="stDownloadButton"] > button {{ background: var(--bg-card) !important; color: var(--text-primary) !important; border: 1px solid var(--border-strong) !important; border-radius: 10px !important; font-family: var(--font-display) !important; font-weight: 600 !important; font-size: 0.85rem !important; padding: 0.6rem 1.2rem !important; width: 100% !important; box-shadow: none !important; transition: all 0.2s !important; outline: none !important; }}
 [data-testid="stDownloadButton"] > button:hover {{ background: var(--purple-soft) !important; border-color: var(--purple-bright) !important; transform: translateY(-1px) !important; }}
 
 [data-testid="stAlert"] {{ background: var(--bg-card) !important; border-radius: 12px !important; border: 1px solid var(--border) !important; }}
@@ -358,11 +379,9 @@ hr {{ border-color: var(--border) !important; }}
 
 .result-card {{ background: linear-gradient(135deg, rgba(74,222,128,0.05) 0%, var(--bg-card) 50%); border: 1px solid rgba(74,222,128,0.25); border-radius: var(--radius-card); padding: 1.6rem 1.8rem; box-shadow: var(--shadow-card), var(--shadow-glow-g); margin-top: 1.2rem; }}
 .result-badge {{ background: var(--green-soft); border: 1px solid rgba(74,222,128,0.30); color: var(--green-bright); border-radius: 999px; padding: 3px 12px; font-size: 0.70rem; letter-spacing: 0.10em; text-transform: uppercase; font-family: var(--font-display); font-weight: 600; margin-bottom: 1rem; display: inline-block; }}
-
 .feedback-item {{ background: var(--bg-surface); border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 1rem; margin-bottom: 0.5rem; }}
 .empty-state {{ text-align: center; padding: 3rem 1rem; }}
 .empty-icon {{ font-size: 3rem; margin-bottom: 0.8rem; }}
-
 .footer-custom {{ text-align: center; padding: 2rem 0 0; color: var(--text-muted); font-size: 0.78rem; font-family: var(--font-body); }}
 .footer-custom span {{ color: #f43f5e; }}
 .footer-custom strong {{ color: var(--purple-bright); }}
@@ -372,13 +391,9 @@ hr {{ border-color: var(--border) !important; }}
 [data-testid="stTabs"] [aria-selected="true"] {{ background: var(--purple-soft) !important; color: var(--purple-bright) !important; border: 1px solid var(--border-strong) !important; }}
 [data-testid="stToggle"] label {{ color: var(--text-secondary) !important; }}
 
-/* Slider con gradiente de marca */
+/* ── Slider con gradiente de marca ── */
 [data-testid="stSlider"] > div > div > div {{ background: linear-gradient(135deg, #7c3aed, #a855f7, #06b6d4) !important; }}
-[data-testid="stSlider"] [role="slider"] {{
-    background: #a855f7 !important;
-    border: 2px solid #c084fc !important;
-    box-shadow: 0 0 12px rgba(168,85,247,0.6) !important;
-}}
+[data-testid="stSlider"] [role="slider"] {{ background: #a855f7 !important; border: 2px solid #c084fc !important; box-shadow: 0 0 12px rgba(168,85,247,0.6) !important; }}
 [data-testid="stSlider"] label {{ color: var(--text-secondary) !important; }}
 </style>
 """, unsafe_allow_html=True)
@@ -615,7 +630,6 @@ with tab1:
         type=["jpg", "jpeg", "png", "pdf"],
         accept_multiple_files=True
     )
-    st.caption(t("uploader_nota"))
 
     if archivos and len(archivos) > MAX_FOTOS:
         st.warning(t("aviso_max"))
