@@ -29,12 +29,12 @@ MODELO = "claude-haiku-4-5"
 MAX_FOTOS = 5
 
 CHIPS = [
-    "Solo conceptos clave",
-    "Para examen mañana",
+    "Conceptos clave",
+    "Examen mañana",
     "Muy detallado",
-    "Solo definiciones",
+    "Definiciones",
     "Resumen corto",
-    "Incluir ejemplos",
+    "Con ejemplos",
 ]
 
 def get_secret(key, default=""):
@@ -66,7 +66,8 @@ TEXTOS = {
         "idioma": "🌐 Idioma del resumen",
         "nivel": "📊 Nivel de detalle",
         "tablas": "📋 Tablas/esquemas",
-        "uploader": "Arrastra tus fotos o PDFs aquí, o haz clic para seleccionar",
+        "uploader": "📚 Arrastra tus apuntes aquí · JPG · PNG · PDF · Máx. 5 archivos",
+        "uploader_nota": "Máximo 5 archivos · JPG, PNG, PDF",
         "btn_transformar": "✨  Generar resumen con IA",
         "descarga_txt": "⬇ Descargar .txt",
         "descarga_docx": "⬇ Descargar .docx",
@@ -77,8 +78,8 @@ TEXTOS = {
         "idioma_app_label": "🌍 Idioma de la app",
         "guardar": "✦ Guardar ajustes",
         "ajustes_guardados": "✓ Ajustes guardados.",
-        "nombre_ph": "Tu nombre o alias",
-        "opinion_ph": "¿Qué mejorarías? ¿Qué te gusta? ¿Qué falla?",
+        "nombre_ph": "Tu nombre",
+        "opinion_ph": "¿Qué mejorarías? ¿Qué te gusta?",
         "enviar_fb": "✦ Enviar feedback",
         "fb_ok": "✓ ¡Gracias por tu feedback!",
         "fb_error": "❌ Error al enviar.",
@@ -87,7 +88,7 @@ TEXTOS = {
         "login_badge": "✦ Versión beta privada",
         "login_desc": "Versión beta privada. Introduce la contraseña para acceder.",
         "contrasena": "Contraseña",
-        "contrasena_ph": "Introduce la contraseña...",
+        "contrasena_ph": "Contraseña...",
         "entrar": "✦  Entrar",
         "contrasena_error": "Contraseña incorrecta.",
         "aviso_foto": "⚠️ Sube al menos una foto o PDF.",
@@ -97,7 +98,7 @@ TEXTOS = {
         "generando": "Generando resumen…",
         "listo": "✓ Listo",
         "instrucciones_titulo": "💬 Instrucciones",
-        "instrucciones_ph": "O escribe tus propias instrucciones...",
+        "instrucciones_ph": "Escribe tus instrucciones...",
     },
     "en": {
         "badge": "✦ Specialized in summaries",
@@ -109,7 +110,8 @@ TEXTOS = {
         "idioma": "🌐 Summary language",
         "nivel": "📊 Detail level",
         "tablas": "📋 Tables/diagrams",
-        "uploader": "Drag your photos or PDFs here, or click to select",
+        "uploader": "📚 Drag your notes here · JPG · PNG · PDF · Max. 5 files",
+        "uploader_nota": "Max. 5 files · JPG, PNG, PDF",
         "btn_transformar": "✨  Generate summary with AI",
         "descarga_txt": "⬇ Download .txt",
         "descarga_docx": "⬇ Download .docx",
@@ -120,8 +122,8 @@ TEXTOS = {
         "idioma_app_label": "🌍 App language",
         "guardar": "✦ Save settings",
         "ajustes_guardados": "✓ Settings saved.",
-        "nombre_ph": "Your name or alias",
-        "opinion_ph": "What would you improve? What do you like? What's wrong?",
+        "nombre_ph": "Your name",
+        "opinion_ph": "What would you improve? What do you like?",
         "enviar_fb": "✦ Send feedback",
         "fb_ok": "✓ Thanks for your feedback!",
         "fb_error": "❌ Error sending.",
@@ -130,7 +132,7 @@ TEXTOS = {
         "login_badge": "✦ Private beta version",
         "login_desc": "Private beta version. Enter the password to access.",
         "contrasena": "Password",
-        "contrasena_ph": "Enter the password...",
+        "contrasena_ph": "Password...",
         "entrar": "✦  Enter",
         "contrasena_error": "Incorrect password.",
         "aviso_foto": "⚠️ Upload at least one photo or PDF.",
@@ -140,7 +142,7 @@ TEXTOS = {
         "generando": "Generating summary…",
         "listo": "✓ Done",
         "instrucciones_titulo": "💬 Instructions",
-        "instrucciones_ph": "Or write your own instructions...",
+        "instrucciones_ph": "Write your instructions...",
     },
     "gl": {
         "badge": "✦ Especializada en resumos",
@@ -152,7 +154,8 @@ TEXTOS = {
         "idioma": "🌐 Idioma do resumo",
         "nivel": "📊 Nivel de detalle",
         "tablas": "📋 Táboas/esquemas",
-        "uploader": "Arrastra as túas fotos ou PDFs aquí, ou fai clic para seleccionar",
+        "uploader": "📚 Arrastra os teus apuntes aquí · JPG · PNG · PDF · Máx. 5 arquivos",
+        "uploader_nota": "Máximo 5 arquivos · JPG, PNG, PDF",
         "btn_transformar": "✨  Xerar resumo con IA",
         "descarga_txt": "⬇ Descargar .txt",
         "descarga_docx": "⬇ Descargar .docx",
@@ -163,8 +166,8 @@ TEXTOS = {
         "idioma_app_label": "🌍 Idioma da app",
         "guardar": "✦ Gardar axustes",
         "ajustes_guardados": "✓ Axustes gardados.",
-        "nombre_ph": "O teu nome ou alias",
-        "opinion_ph": "Que mellorarías? Que che gusta? Que falla?",
+        "nombre_ph": "O teu nome",
+        "opinion_ph": "Que mellorarías? Que che gusta?",
         "enviar_fb": "✦ Enviar feedback",
         "fb_ok": "✓ Grazas polo teu feedback!",
         "fb_error": "❌ Erro ao enviar.",
@@ -173,7 +176,7 @@ TEXTOS = {
         "login_badge": "✦ Versión beta privada",
         "login_desc": "Versión beta privada. Introduce o contrasinal para acceder.",
         "contrasena": "Contrasinal",
-        "contrasena_ph": "Introduce o contrasinal...",
+        "contrasena_ph": "Contrasinal...",
         "entrar": "✦  Entrar",
         "contrasena_error": "Contrasinal incorrecto.",
         "aviso_foto": "⚠️ Sube polo menos unha foto ou PDF.",
@@ -183,7 +186,7 @@ TEXTOS = {
         "generando": "Xerando resumo…",
         "listo": "✓ Listo",
         "instrucciones_titulo": "💬 Instrucións",
-        "instrucciones_ph": "Ou escribe as túas propias instrucións...",
+        "instrucciones_ph": "Escribe as túas instrucións...",
     }
 }
 
@@ -198,12 +201,13 @@ def get_css():
     --border: rgba(124,58,237,0.15); --border-strong: rgba(124,58,237,0.35);
     --purple-bright: #7c3aed; --purple-mid: #6d28d9; --purple-soft: rgba(124,58,237,0.08);
     --green-bright: #16a34a; --green-soft: rgba(22,163,74,0.08);
-    --text-primary: #1a1a2e; --text-secondary: #4a4a6a; --text-muted: #9090b0;
+    --text-primary: #1a1a2e; --text-secondary: #4a4a6a; --text-muted: #7070a0;
     --radius-card: 16px; --radius-btn: 10px;
     --shadow-card: 0 4px 24px rgba(0,0,0,0.08), 0 0 0 1px var(--border);
     --shadow-glow-p: 0 0 30px rgba(124,58,237,0.10);
     --shadow-glow-g: 0 0 30px rgba(22,163,74,0.08);
     --font-display: 'Syne', sans-serif; --font-body: 'DM Sans', sans-serif;
+    --placeholder: rgba(70,70,120,0.6);
 }
 html, body, [data-testid="stAppViewContainer"] { background-color: var(--bg-base) !important; }
 [data-testid="stAppViewContainer"] {
@@ -216,12 +220,13 @@ html, body, [data-testid="stAppViewContainer"] { background-color: var(--bg-base
     --border: rgba(138,92,246,0.18); --border-strong: rgba(138,92,246,0.40);
     --purple-bright: #a855f7; --purple-mid: #7c3aed; --purple-soft: rgba(168,85,247,0.12);
     --green-bright: #4ade80; --green-soft: rgba(74,222,128,0.10);
-    --text-primary: #f0eeff; --text-secondary: #a89fc0; --text-muted: #5c556e;
+    --text-primary: #f0eeff; --text-secondary: #a89fc0; --text-muted: #7070a0;
     --radius-card: 16px; --radius-btn: 10px;
     --shadow-card: 0 4px 32px rgba(0,0,0,0.45), 0 0 0 1px var(--border);
     --shadow-glow-p: 0 0 40px rgba(168,85,247,0.15);
     --shadow-glow-g: 0 0 40px rgba(74,222,128,0.12);
     --font-display: 'Syne', sans-serif; --font-body: 'DM Sans', sans-serif;
+    --placeholder: rgba(200,190,230,0.55);
 }
 html, body, [data-testid="stAppViewContainer"] { background-color: var(--bg-base) !important; }
 [data-testid="stAppViewContainer"] {
@@ -239,26 +244,96 @@ html, body, [data-testid="stAppViewContainer"] {{ font-family: var(--font-body) 
 .block-container {{ max-width: 720px !important; padding: 2rem 1.5rem 4rem !important; }}
 
 .hero-wrap {{ text-align: center; padding: 1rem 0 0.8rem; }}
-.hero-badge {{ display: inline-flex; align-items: center; gap: 6px; background: var(--purple-soft); border: 1px solid var(--border-strong); border-radius: 999px; padding: 4px 14px; font-size: 0.70rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--purple-bright); font-family: var(--font-display); font-weight: 600; margin-bottom: 0.6rem; opacity: 0.9; }}
+.hero-badge {{ display: inline-flex; align-items: center; gap: 6px; background: var(--purple-soft); border: 1px solid var(--border-strong); border-radius: 999px; padding: 4px 14px; font-size: 0.70rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--purple-bright); font-family: var(--font-display); font-weight: 600; margin-bottom: 0.6rem; }}
 .hero-title {{ font-family: var(--font-display) !important; font-size: clamp(1.8rem, 5vw, 2.8rem) !important; font-weight: 800 !important; line-height: 1.05 !important; background: linear-gradient(135deg, #c084fc 0%, #a855f7 35%, #4ade80 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin: 0 0 0.3rem !important; letter-spacing: -0.02em; }}
-.hero-sub {{ font-family: var(--font-body); font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5; opacity: 0.85; }}
+.hero-sub {{ font-family: var(--font-body); font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5; }}
 
 .card {{ background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-card); padding: 1.4rem 1.6rem; box-shadow: var(--shadow-card); margin-bottom: 1rem; transition: border-color 0.25s, box-shadow 0.25s; }}
-.card:hover {{ border-color: var(--border-strong); box-shadow: var(--shadow-card), var(--shadow-glow-p); }}
 .card-label {{ display: flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 700; font-size: 0.78rem; letter-spacing: 0.10em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 0.8rem; }}
 .card-label .dot {{ width: 6px; height: 6px; border-radius: 50%; background: var(--purple-bright); box-shadow: 0 0 8px var(--purple-bright); }}
 
-.chip-wrap {{ display: flex; flex-wrap: wrap; gap: 6px; margin: 0.5rem 0 0.8rem; }}
-.chip-btn {{ background: var(--bg-surface); border: 1px solid var(--border-strong); border-radius: 999px; padding: 5px 12px; font-size: 0.80rem; color: var(--text-secondary); white-space: nowrap; font-family: var(--font-body); }}
+/* Chips con gradiente en borde, relleno al hover */
+[data-testid="stButton"] > button[kind="secondary"],
+[data-testid="stBaseButton-secondary"] {{
+    background: transparent !important;
+    border: 1.5px solid transparent !important;
+    background-clip: padding-box !important;
+    outline: 1.5px solid #a855f7 !important;
+    outline-offset: -1.5px !important;
+    border-radius: 999px !important;
+    color: #f0eeff !important;
+    font-family: var(--font-body) !important;
+    font-size: 0.78rem !important;
+    font-weight: 500 !important;
+    padding: 4px 12px !important;
+    width: auto !important;
+    min-width: 0 !important;
+    box-shadow: none !important;
+    transition: all 0.18s !important;
+    white-space: nowrap !important;
+    letter-spacing: 0 !important;
+}}
+[data-testid="stButton"] > button[kind="secondary"]:hover,
+[data-testid="stBaseButton-secondary"]:hover {{
+    background: linear-gradient(135deg, #7c3aed, #a855f7, #06b6d4) !important;
+    outline: none !important;
+    color: white !important;
+    box-shadow: 0 0 14px rgba(168,85,247,0.4) !important;
+}}
 
-[data-testid="stTextInput"] input {{ background: var(--bg-surface) !important; border: 1px solid var(--border) !important; border-radius: 10px !important; color: var(--text-primary) !important; font-family: var(--font-body) !important; padding: 0.75rem 1rem !important; }}
+/* Botón principal */
+[data-testid="stButton"] > button[kind="primary"],
+[data-testid="stBaseButton-primary"] {{
+    background: linear-gradient(135deg, #7c3aed, #a855f7, #06b6d4) !important;
+    color: #fff !important; border: none !important; border-radius: 14px !important;
+    font-family: var(--font-display) !important; font-weight: 800 !important;
+    font-size: 1.05rem !important; padding: 1rem 2rem !important; width: 100% !important;
+    box-shadow: 0 0 30px rgba(168,85,247,0.45), 0 4px 20px rgba(124,58,237,0.40) !important;
+    transition: transform 0.15s, box-shadow 0.15s !important;
+    outline: none !important;
+}}
+[data-testid="stButton"] > button[kind="primary"]:hover,
+[data-testid="stBaseButton-primary"]:hover {{
+    transform: translateY(-3px) !important;
+    box-shadow: 0 0 50px rgba(168,85,247,0.65), 0 8px 28px rgba(124,58,237,0.55) !important;
+}}
+
+/* Inputs con placeholder visible */
+[data-testid="stTextInput"] input {{
+    background: var(--bg-surface) !important; border: 1px solid var(--border) !important;
+    border-radius: 10px !important; color: var(--text-primary) !important;
+    font-family: var(--font-body) !important; padding: 0.75rem 1rem !important;
+}}
 [data-testid="stTextInput"] input:focus {{ border-color: var(--purple-bright) !important; box-shadow: 0 0 0 3px rgba(168,85,247,0.15) !important; }}
-[data-testid="stTextInput"] label, [data-testid="stTextArea"] label {{ color: var(--text-secondary) !important; font-size: 0.88rem !important; }}
-[data-testid="stTextArea"] textarea {{ background: var(--bg-surface) !important; border: 1px solid var(--border) !important; border-radius: 10px !important; color: var(--text-primary) !important; font-family: var(--font-body) !important; }}
+[data-testid="stTextInput"] input::placeholder {{ color: var(--placeholder) !important; opacity: 1 !important; }}
+[data-testid="stTextInput"] label {{ color: var(--text-secondary) !important; font-size: 0.88rem !important; }}
+[data-testid="stTextArea"] textarea {{
+    background: var(--bg-surface) !important; border: 1px solid var(--border) !important;
+    border-radius: 10px !important; color: var(--text-primary) !important;
+    font-family: var(--font-body) !important;
+}}
+[data-testid="stTextArea"] textarea::placeholder {{ color: var(--placeholder) !important; opacity: 1 !important; }}
+[data-testid="stTextArea"] label {{ color: var(--text-secondary) !important; font-size: 0.88rem !important; }}
 
-section[data-testid="stFileUploaderDropzone"] {{ background: var(--bg-surface) !important; border: 2px dashed var(--border-strong) !important; border-radius: var(--radius-card) !important; }}
+/* Uploader con presencia */
+[data-testid="stFileUploader"] {{ margin-top: 0.5rem; }}
+section[data-testid="stFileUploaderDropzone"] {{
+    background: rgba(15,15,26,0.7) !important;
+    border: 2px dashed var(--purple-bright) !important;
+    border-radius: var(--radius-card) !important;
+    min-height: 120px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: border-color 0.2s, background 0.2s !important;
+}}
+section[data-testid="stFileUploaderDropzone"]:hover {{
+    background: rgba(168,85,247,0.08) !important;
+    border-color: #c084fc !important;
+}}
 [data-testid="stFileUploader"] * {{ color: var(--text-secondary) !important; }}
 [data-testid="stFileUploader"] svg {{ fill: var(--purple-bright) !important; }}
+[data-testid="stFileUploaderDropzoneInstructions"] small {{ display: none !important; }}
 
 [data-testid="stSelectbox"] > div > div {{ background: var(--bg-surface) !important; border: 1px solid var(--border) !important; border-radius: 10px !important; color: var(--text-primary) !important; }}
 [data-testid="stSelectbox"] label {{ color: var(--text-secondary) !important; font-size: 0.88rem !important; }}
@@ -266,21 +341,8 @@ section[data-testid="stFileUploaderDropzone"] {{ background: var(--bg-surface) !
 [data-baseweb="popover"] {{ background: var(--bg-card) !important; border: 1px solid var(--border-strong) !important; border-radius: 12px !important; }}
 [role="option"]:hover {{ background: var(--purple-soft) !important; }}
 
-[data-testid="stButton"] > button {{
-    background: linear-gradient(135deg, #7c3aed, #a855f7, #06b6d4) !important;
-    color: #fff !important; border: none !important; border-radius: 14px !important;
-    font-family: var(--font-display) !important; font-weight: 800 !important;
-    font-size: 1.05rem !important; padding: 1rem 2rem !important; width: 100% !important;
-    box-shadow: 0 0 30px rgba(168,85,247,0.45), 0 4px 20px rgba(124,58,237,0.40) !important;
-    transition: transform 0.15s, box-shadow 0.15s !important; letter-spacing: 0.02em !important;
-}}
-[data-testid="stButton"] > button:hover {{
-    transform: translateY(-3px) !important;
-    box-shadow: 0 0 50px rgba(168,85,247,0.65), 0 8px 28px rgba(124,58,237,0.55) !important;
-}}
-
 [data-testid="stDownloadButton"] > button {{ background: var(--bg-card) !important; color: var(--text-primary) !important; border: 1px solid var(--border-strong) !important; border-radius: 10px !important; font-family: var(--font-display) !important; font-weight: 600 !important; font-size: 0.85rem !important; padding: 0.6rem 1.2rem !important; width: 100% !important; box-shadow: none !important; transition: all 0.2s !important; }}
-[data-testid="stDownloadButton"] > button:hover {{ background: var(--purple-soft) !important; border-color: var(--purple-bright) !important; transform: translateY(-1px) !important; color: var(--text-primary) !important; }}
+[data-testid="stDownloadButton"] > button:hover {{ background: var(--purple-soft) !important; border-color: var(--purple-bright) !important; transform: translateY(-1px) !important; }}
 
 [data-testid="stAlert"] {{ background: var(--bg-card) !important; border-radius: 12px !important; border: 1px solid var(--border) !important; }}
 [data-testid="stExpander"] {{ background: var(--bg-card) !important; border: 1px solid var(--border) !important; border-radius: var(--radius-card) !important; }}
@@ -298,10 +360,10 @@ hr {{ border-color: var(--border) !important; }}
 .result-badge {{ background: var(--green-soft); border: 1px solid rgba(74,222,128,0.30); color: var(--green-bright); border-radius: 999px; padding: 3px 12px; font-size: 0.70rem; letter-spacing: 0.10em; text-transform: uppercase; font-family: var(--font-display); font-weight: 600; margin-bottom: 1rem; display: inline-block; }}
 
 .feedback-item {{ background: var(--bg-surface); border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 1rem; margin-bottom: 0.5rem; }}
-.empty-state {{ text-align: center; padding: 3rem 1rem; color: var(--text-muted); }}
+.empty-state {{ text-align: center; padding: 3rem 1rem; }}
 .empty-icon {{ font-size: 3rem; margin-bottom: 0.8rem; }}
 
-.footer-custom {{ text-align: center; padding: 2rem 0 0; color: var(--text-muted); font-size: 0.78rem; font-family: var(--font-body); opacity: 0.8; }}
+.footer-custom {{ text-align: center; padding: 2rem 0 0; color: var(--text-muted); font-size: 0.78rem; font-family: var(--font-body); }}
 .footer-custom span {{ color: #f43f5e; }}
 .footer-custom strong {{ color: var(--purple-bright); }}
 
@@ -310,9 +372,13 @@ hr {{ border-color: var(--border) !important; }}
 [data-testid="stTabs"] [aria-selected="true"] {{ background: var(--purple-soft) !important; color: var(--purple-bright) !important; border: 1px solid var(--border-strong) !important; }}
 [data-testid="stToggle"] label {{ color: var(--text-secondary) !important; }}
 
-/* Slider con colores de marca */
-[data-testid="stSlider"] > div > div > div {{ background: linear-gradient(135deg, #7c3aed, #a855f7) !important; }}
-[data-testid="stSlider"] [role="slider"] {{ background: #a855f7 !important; border: 2px solid #c084fc !important; box-shadow: 0 0 12px rgba(168,85,247,0.5) !important; }}
+/* Slider con gradiente de marca */
+[data-testid="stSlider"] > div > div > div {{ background: linear-gradient(135deg, #7c3aed, #a855f7, #06b6d4) !important; }}
+[data-testid="stSlider"] [role="slider"] {{
+    background: #a855f7 !important;
+    border: 2px solid #c084fc !important;
+    box-shadow: 0 0 12px rgba(168,85,247,0.6) !important;
+}}
 [data-testid="stSlider"] label {{ color: var(--text-secondary) !important; }}
 </style>
 """, unsafe_allow_html=True)
@@ -347,13 +413,13 @@ def transcribir(imagenes, idioma, nivel, contexto, esquemas):
         return ""
     client = anthropic.Anthropic(api_key=api_key)
     lineas = {"Breve (2-3 líneas)": "2-3", "Medio (4-6 líneas)": "4-6", "Detallado (7-10 líneas)": "7-10"}.get(nivel, "4-6")
-    ctx = f"\nInstrucciones del usuario: {contexto}" if contexto.strip() else ""
+    ctx = f"\nInstrucciones: {contexto}" if contexto.strip() else ""
     sin_esquemas = "\nNO uses tablas, esquemas visuales ni diagramas. Solo texto estructurado." if not esquemas else ""
 
     system = f"""Eres un experto en crear apuntes de estudio para estudiantes de Bachillerato.
 Responde SIEMPRE en {idioma}.
 
-ESTRUCTURA: Si las imágenes contienen varios temas o apartados distintos, organiza el resumen separando cada tema:
+ESTRUCTURA: Si las imágenes contienen varios temas, organiza separando cada tema:
 # Numero. Titulo del tema
 [resumen]
 ---
@@ -361,20 +427,18 @@ ESTRUCTURA: Si las imágenes contienen varios temas o apartados distintos, organ
 [resumen]
 
 FORMATO:
-- Título del tema: # Numero. Titulo
-- Apartados: ### 1. Nombre: explicación en el mismo renglón
+- Título: # Numero. Titulo
+- Apartados: ### 1. Nombre: explicación
 - Conceptos clave: **concepto**
 
 CALIDAD:
-- Resumen COMPACTO: cada apartado en {lineas} líneas máximo
-- Solo información esencial: definiciones clave, datos importantes, clasificaciones principales
-- Elimina ejemplos secundarios y repeticiones
+- COMPACTO: cada apartado en {lineas} líneas máximo
+- Solo información esencial
 - Lenguaje académico directo para memorizar en examen
-- NO inventes información
-- NO pongas introducciones ni conclusiones inventadas{sin_esquemas}{ctx}"""
+- NO inventes información{sin_esquemas}{ctx}"""
 
     content = [{"type": "image", "source": {"type": "base64", "media_type": "image/jpeg", "data": encode_image(img)}} for img in imagenes]
-    content.append({"type": "text", "text": "Analiza todas las imágenes y organiza el resumen por temas/apartados detectados automáticamente."})
+    content.append({"type": "text", "text": "Analiza las imágenes y organiza el resumen por temas detectados automáticamente."})
 
     resp = client.messages.create(
         model=MODELO, max_tokens=3000, system=system,
@@ -482,24 +546,20 @@ def enviar_feedback(usuario, opinion, puntuacion):
     except:
         return False
 
-def mostrar_hero(pequeno=False):
+def mostrar_hero():
     logo_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "logo.png")
     if os.path.exists(logo_path):
         with open(logo_path, "rb") as f:
             logo_b64 = base64.b64encode(f.read()).decode()
-        size = "70px" if pequeno else "100px"
-        st.markdown(f'<div style="text-align:center;margin:0.5rem 0 0.3rem"><img src="data:image/png;base64,{logo_b64}" style="width:{size};height:{size};object-fit:contain;filter:drop-shadow(0 0 16px rgba(168,85,247,0.5));"></div>', unsafe_allow_html=True)
-    if pequeno:
-        st.markdown(f'<div style="text-align:center;margin-bottom:0.8rem"><span style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;background:linear-gradient(135deg,#c084fc,#a855f7,#4ade80);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Shaad IA</span></div>', unsafe_allow_html=True)
-    else:
-        st.markdown(f'<div class="hero-wrap"><div class="hero-badge">{t("badge")}</div><h1 class="hero-title">Shaad IA</h1><p class="hero-sub">{t("slogan")}</p></div>', unsafe_allow_html=True)
+        st.markdown(f'<div style="text-align:center;margin:0.5rem 0 0.3rem"><img src="data:image/png;base64,{logo_b64}" style="width:90px;height:90px;object-fit:contain;filter:drop-shadow(0 0 16px rgba(168,85,247,0.5));"></div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="hero-wrap"><div class="hero-badge">{t("badge")}</div><h1 class="hero-title">Shaad IA</h1><p class="hero-sub">{t("slogan")}</p></div>', unsafe_allow_html=True)
 
 # ── Login ─────────────────────────────────────────────────────────────────────
 def check_password():
     if "autenticado" not in st.session_state:
         st.session_state.autenticado = False
     if not st.session_state.autenticado:
-        mostrar_hero(pequeno=False)
+        mostrar_hero()
         st.markdown(f'<div class="card"><div class="card-label"><span class="dot"></span>🔒 &nbsp;Acceso privado</div><p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:1rem;">{t("login_desc")}</p></div>', unsafe_allow_html=True)
         password = st.text_input(t("contrasena"), type="password", placeholder=t("contrasena_ph"))
         if st.button(t("entrar")):
@@ -514,8 +574,7 @@ def check_password():
 if not check_password():
     st.stop()
 
-# ── Hero compacto ─────────────────────────────────────────────────────────────
-mostrar_hero(pequeno=False)
+mostrar_hero()
 
 # ── Tabs ──────────────────────────────────────────────────────────────────────
 tab1, tab2, tab3, tab4 = st.tabs([t("tab1"), t("tab2"), t("tab3"), t("tab4")])
@@ -535,11 +594,10 @@ with tab1:
     if "contexto_val" not in st.session_state:
         st.session_state.contexto_val = ""
 
-    # Chips en una sola fila de botones pequeños
     chip_cols = st.columns(len(CHIPS))
     for i, chip in enumerate(CHIPS):
         with chip_cols[i]:
-            if st.button(chip, key=f"chip_{i}", help=chip):
+            if st.button(chip, key=f"chip_{i}"):
                 st.session_state.contexto_val = chip
                 st.rerun()
 
@@ -552,12 +610,13 @@ with tab1:
     if contexto != st.session_state.contexto_val:
         st.session_state.contexto_val = contexto
 
-    # Uploader único y limpio
     archivos = st.file_uploader(
         t("uploader"),
         type=["jpg", "jpeg", "png", "pdf"],
         accept_multiple_files=True
     )
+    st.caption(t("uploader_nota"))
+
     if archivos and len(archivos) > MAX_FOTOS:
         st.warning(t("aviso_max"))
         archivos = archivos[:MAX_FOTOS]
@@ -611,7 +670,6 @@ with tab2:
         </div>
         """, unsafe_allow_html=True)
         if st.button(t("ir_a_resumir")):
-            st.session_state["active_tab"] = 0
             st.rerun()
     else:
         for i, item in enumerate(historial):
@@ -670,10 +728,9 @@ with tab4:
 
     col_s1, col_s2 = st.columns([3, 1])
     with col_s1:
-        puntuacion = st.select_slider("Puntuación (1-5)", options=[1, 2, 3, 4, 5], value=5)
+        puntuacion = st.select_slider("Puntuación (1 a 5)", options=[1, 2, 3, 4, 5], value=5)
     with col_s2:
-        estrellas = "⭐" * puntuacion
-        st.markdown(f'<div style="padding-top:1.8rem;font-size:0.9rem">{estrellas}</div>', unsafe_allow_html=True)
+        st.markdown(f'<div style="padding-top:1.8rem;font-size:0.9rem">{"⭐" * puntuacion}</div>', unsafe_allow_html=True)
 
     if st.button(t("enviar_fb")):
         if opinion.strip():
